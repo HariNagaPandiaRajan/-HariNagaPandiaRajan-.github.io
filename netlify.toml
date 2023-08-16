@@ -1,5 +1,6 @@
 [build]
-  publish = "-HariNagaPandiaRajan-.github.io/index.html" # Specify the directory containing your built HTML files
+  publish = "-HariNagaPandiaRajan-.github.io"  # Path to your publish directory
+
 
 [[redirects]]
   from = "/*"
