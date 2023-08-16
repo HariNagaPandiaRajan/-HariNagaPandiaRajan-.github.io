@@ -1,0 +1,8 @@
+[build]
+  publish = "path/to/your/publish/directory" # Specify the directory containing your built HTML files
+
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+  
