@@ -20,7 +20,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
     <title>Web</title>
-<body>
+<body >
     <header>
         <p class="logo">Hari Naga Pandia Rajan .<span>D</span></p>
      
@@ -40,7 +40,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Project Selector</title>
         <!-- <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script> -->
-        <script src="script.js"></script>
+        <!-- <script src="script.js"></script> -->
     </header>
    
     <body>
@@ -49,9 +49,28 @@
         <button id="buttonProject3">Project 3</button>
     
         <div id="projectContainer"></div>
+    <script>
+        $(document).ready(function() {
+  $('#buttonProject1').click(function() {
+      loadProject('project1.html');
+  });
+
+  $('#buttonProject2').click(function() {
+      loadProject('project2.html');
+  });
+
+  $('#buttonProject3').click(function() {
+      loadProject('project3.html');
+  });
+});
+
+function loadProject(url) {
+  $('#projectContainer').load(url);
+}
+    </script>
     </body>
 
-    <script src="script.js"></script>
+    <!-- <script src="script.js"></script> -->
 
 
 </html>
