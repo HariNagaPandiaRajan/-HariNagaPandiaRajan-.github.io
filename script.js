@@ -18,7 +18,7 @@ let darkmode = document.querySelector("#darkmode");
 
 darkmode.onclick = () => {
   if (darkmode.classList.contains("bx-moon")) {
-    darkmode.classList.replace("bx-moon", "bx-sun");
+    darkmode.classList.replace("bx-moon", "bx-sun");   
     document.body.classList.add("active");
   } else {
     darkmode.classList.replace("bx-sun", "bx-moon");
@@ -82,7 +82,65 @@ function checkBoxes() {
     })
 }
                                     
+// web router
+$(document).ready(function() {
+  $('#buttonProject1').click(function() {
+      loadProject('project1.html');
+  });
 
-   
+  $('#buttonProject2').click(function() {
+      loadProject('project2.html');
+  });
 
+  $('#buttonProject3').click(function() {
+      loadProject('project3.html');
+  });
+});
+
+function loadProject(url) {
+  $('#projectContainer').load(url);
+}
+
+
+// callender 
+
+const display = document.querySelector('#display');
+const buttons = document.querySelectorAll('button');
+buttons.forEach((item) => {
+    item.onclick = () => {
+        if (item.id == 'clear') {
+            display.innerText = '';
+        } else if (item.id == 'backspace') {
+            let string = display.innerText.toString();
+            display.innerText = string.substr(0, string.length - 1);
+        } else if (display.innerText != '' && item.id == 'equal') {
+            display.innerText = eval(display.innerText);
+        } else if (display.innerText == '' && item.id == 'equal') {
+            display.innerText = 'Empty!';
+            setTimeout(() => (display.innerText = ''), 2000);
+        } else {
+            display.innerText += item.id;
+        }
+    }
+})
+const themeToggleBtn = document.querySelector('.theme-toggler');
+const calculator = document.querySelector('.dark');
+const toggleIcon = document.querySelector('.toggler-icon');
+let isDark = true;
+themeToggleBtn.onclick = () => {
+    calculator.classList.toggle('dark');
+    themeToggleBtn.classList.toggle('active');
+    isDark = !isDark;
+}
+
+
+
+// clock
+document.addEventListener("DOMContentLoaded", function() {
+  const form = document.getElementById("contact-form");
+
+  form.addEventListener("submit", function(event) {
+    event.preventDefault();
+  });
+});
 

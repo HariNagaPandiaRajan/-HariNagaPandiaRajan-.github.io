@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style1.css">
+  <title>Bike Company</title>
+</head>
+<body>
+  <header>
+    <h1>Bike Company</h1>
+  </header>
+
+  <section class="hero">
+    <div class="hero-content">
+      <h2>Explore the World on Two Wheels</h2>
+      <p>Ride with us and discover new horizons.</p>
+    </div>
+  </section>
+
+  <section class="contact">
+    <h2>Contact Us</h2>
+    <form action="https://formspree.io/f/your-formspree-id" method="POST">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" required>
+        <label for="message">Message:</label>
+        <textarea id="message" name="message" rows="4" required></textarea>
+        <button type="submit">Send Message</button>
+      </form>
+  </section>
+
+  <footer>
+    <p>&copy; 2023 Bike Company. All rights reserved.</p>
+  </footer>
+
+  <script>
+    // document.addEventListener("DOMContentLoaded", function() {
+    //   const form = document.getElementById("contact-form");
+
+    //   form.addEventListener("submit", function(event) {
+    //     event.preventDefault();
+    //   });
+    // });
+
+     document.addEventListener("DOMContentLoaded", function() {
+    const form = document.getElementById("contact-form");
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+      
+      const name = document.getElementById("name").value;
+      const email = document.getElementById("email").value;
+      const message = document.getElementById("message").value;
+      
+      // You can add form validation logic here
+      
+      // Once validated, you can send the form data to Formspree
+      const formData = new FormData();
+      formData.append("name", name);
+      formData.append("email", email);
+      formData.append("message", message);
+      
+      fetch("https://formspree.io/f/your-formspree-id", {
+  method: "POST",
+  body: formData
+})
+.then(response => {
+  console.log("Response Status:", response.status);
+  return response.json();
+})
+.then(data => {
+  console.log("Response Data:", data);
+})
+.catch(error => {
+  console.error("Error sending email:", error);
+});
+    });
+  });
+  </script>
+</body>
+</html>
