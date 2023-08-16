@@ -83,7 +83,7 @@ body {
     height: 3px;
 }
 
-button {
+.btn-operator,.btn-number {
     height: 60px;
     width: 60px;
     border: 0;
