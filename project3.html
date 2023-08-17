@@ -3,54 +3,46 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HTML Drawing Project</title>
+<title>Animation Example</title>
 <style>
   body {
     margin: 0;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f0f0f0;
+    padding: 0;
+    overflow: hidden;
   }
 
-  #canvas {
-    border: 1px solid #000;
-    background-color: #fff;
+  .object {
+    position: absolute;
+    width: 50px;
+    height: 50px;
+    background-color: #3498db;
+    border-radius: 50%;
+    animation: moveObject 4s infinite alternate;
+  }
+
+  @keyframes moveObject {
+    0% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100vw);
+    }
   }
 </style>
 </head>
 <body>
-  <canvas id="canvas" width="800" height="600"></canvas>
+  <div class="object"></div>
+
   <script>
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
-    let isDrawing = false;
+    const object = document.querySelector('.object');
 
-    canvas.addEventListener('mousedown', startDrawing);
-    canvas.addEventListener('mousemove', draw);
-    canvas.addEventListener('mouseup', stopDrawing);
-    canvas.addEventListener('mouseout', stopDrawing);
-
-    function startDrawing(event) {
-      isDrawing = true;
-      context.beginPath();
-      context.moveTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
+    function createObject() {
+      const newObject = object.cloneNode(true);
+      newObject.style.top = `${Math.random() * 100}vh`;
+      document.body.appendChild(newObject);
     }
 
-    function draw(event) {
-      if (!isDrawing) return;
-      context.lineWidth = 2;
-      context.lineCap = 'round';
-      context.strokeStyle = 'black';
-      context.lineTo(event.clientX - canvas.offsetLeft, event.clientY - canvas.offsetTop);
-      context.stroke();
-    }
-
-    function stopDrawing() {
-      isDrawing = false;
-      context.closePath();
-    }
+    setInterval(createObject, 1000); // Create new objects every 2 seconds
   </script>
 </body>
 </html>

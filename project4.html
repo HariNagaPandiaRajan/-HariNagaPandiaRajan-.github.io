@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<script>
+    document.getElementById("openButton").addEventListener("click", function() {
+        var newTab = window.open("project4demo.html", "_blank");
+        
+        if (newTab) {
+            newTab.onload = function() {
+                newTab.document.documentElement.requestFullscreen();
+            };
+        } else {
+            var htmlLink = document.getElementById("htmlLink");
+            htmlLink.click();
+        }
+    });
+    </script>
+    
+    
+<body>
+    <button style="    position: absolute;
+    top: 50%;
+    margin-left: 45%;" id="openButton">Open Netflix Cloned Project</button>
+<a href="project4demo.html" id="htmlLink" target="_blank" style="display: none;"></a>
+</body>
+</html>
