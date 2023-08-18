@@ -43,7 +43,7 @@
                 <li><a href="#home">Home</a></li>
         <li><a href="#about">About</a></li>
         <li><a href="#skills">Skills</a></li>
-        <li><a href="#services">Services</a></li>
+        <li><a href="#services">Project</a></li>
         <li><a href="#contact">Contact</a></li>
                 <div class="bx bx-moon" id="darkmode"></div>
             </ul>
@@ -254,7 +254,7 @@
     <!-- Services Section Start -->
     <section class="services" id="services">
         <div class="heading">
-            <h2>Services</h2>
+            <h2>Project's</h2>
            
         </div>
         <div class="services-content">
@@ -293,12 +293,18 @@
            
         </div>
         <div class="contact-form">
-            <form action="">
-                <input type="text" placeholder="Your Name">
-                <input type="email" name="" id="" placeholder="Your Email">
-                <textare name="" id="" cols="30" rows="10" placeholder="Write Message Here..."></textare>
-                                    <input type="button" value="Send" class="contact-button">
-                                    </form>
+          <form id="fs-frm" name="simple-contact-form" accept-charset="utf-8" action="https://formspree.io/f/xbjvorlr" method="post">
+            <!-- <fieldset id="fs-frm-inputs"> -->
+              <!-- <label for="full-name">Full Name</label> -->
+              <input type="text" name="name" id="full-name" placeholder="Name" required="">
+              <!-- <label for="email-address">Email Address</label> -->
+              <input type="email" name="_replyto" id="email-address" placeholder="Email" required="">
+              <!-- <label for="message">Message</label> -->
+              <textarea rows="3" name="message" id="message" placeholder="please leave your queries hear " required=""></textarea>
+              <input type="hidden" name="_subject" id="email-subject" value="Contact Form Submission">
+            <!-- </fieldset> -->
+            <input type="submit" value="Submit">
+          </form>
                                 </div>
                                 </section>
                                 <!-- Contact Section End -->

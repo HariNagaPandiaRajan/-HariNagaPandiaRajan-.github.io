@@ -144,3 +144,23 @@ document.addEventListener("DOMContentLoaded", function() {
   });
 });
 
+
+
+// message
+
+function onSubmitForm(e) {
+  var recipientEmail = "harinagapandiarajan@gmail.com"; // Destination email address
+
+  var subject = "Form Submission";
+  var name = e.values[0];
+  var email = e.values[1];
+  var message = e.values[2];
+
+  var body = "Name: " + name + "\nEmail: " + email + "\nMessage: " + message;
+
+  MailApp.sendEmail({
+    to: recipientEmail,
+    subject: subject,
+    body: body
+  });
+}
