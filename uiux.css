@@ -1,0 +1,19 @@
+.image-container {
+    position: relative;
+    width: 300px; /* Adjust the width and height to match your image dimensions */
+    height: 200px;
+    overflow: hidden;
+  }
+
+  .color-change {
+    width: 100%;
+    height: 100%;
+    background-image: url("images/20230129_093851.png"); /* Path to your image */
+    background-size: cover;
+    transition: filter 0.3s ease-in-out;
+    filter: grayscale(100%); /* Initial grayscale effect */
+  }
+
+  .image-container:hover .color-change {
+    filter: grayscale(0%); /* No grayscale on hover */
+  }

@@ -997,7 +997,7 @@ form textarea {
   .percent1{
     display: flex;
     align-items: center;
-    flex-direction: column-reverse;
+    flex-direction: column;
   
   }
   .percent{
@@ -1098,3 +1098,31 @@ form textarea {
     margin-left: 25%;
   }
 }
+
+
+  .me {
+ 
+    background-size: cover;
+    transition: filter 0.3s ease-in-out;
+    filter: grayscale(100%); 
+  }
+  .shape{
+    background-size: cover;
+    transition: filter 0.3s ease-in-out;
+    filter: grayscale(100%);
+  }
+  .shape1{
+    background-size: cover;
+    transition: filter 0.3s ease-in-out;
+    filter: grayscale(100%);
+  }
+
+  .me1hover:hover .me {
+    filter: grayscale(0%); /* No grayscale on hover */
+  }
+  .me1hover:hover .shape {
+    filter: grayscale(0%); /* No grayscale on hover */
+  }
+  .me1hover:hover .shape1 {
+    filter: grayscale(0%); /* No grayscale on hover */
+  }
