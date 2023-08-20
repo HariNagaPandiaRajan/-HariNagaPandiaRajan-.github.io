@@ -148,18 +148,37 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // message
 
+// document.addEventListener("DOMContentLoaded", function () {
+//   const imageContainers = document.querySelectorAll(".me1hover");
+
+//   imageContainers.forEach((container) => {
+//     container.addEventListener("touchstart", function () {
+//       const colorChange = this.querySelector(".me");
+//       colorChange.style.filter = "grayscale(0%)";
+//     });
+
+//     container.addEventListener("touchend", function () {
+//       const colorChange = this.querySelector(".me");
+//       colorChange.style.filter = "grayscale(100%)";
+//     });
+//   });
+// });
+
 document.addEventListener("DOMContentLoaded", function () {
   const imageContainers = document.querySelectorAll(".me1hover");
 
-  imageContainers.forEach((container) => {
-    container.addEventListener("touchstart", function () {
-      const colorChange = this.querySelector(".me");
-      colorChange.style.filter = "grayscale(0%)";
+  const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+      const colorChange = entry.target.querySelector(".me");
+      if (entry.isIntersecting) {
+        colorChange.style.filter = "grayscale(0%)";
+      } else {
+        colorChange.style.filter = "grayscale(100%)";
+      }
     });
+  });
 
-    container.addEventListener("touchend", function () {
-      const colorChange = this.querySelector(".me");
-      colorChange.style.filter = "grayscale(100%)";
-    });
+  imageContainers.forEach(container => {
+    observer.observe(container);
   });
 });
