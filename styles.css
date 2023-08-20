@@ -1126,3 +1126,7 @@ form textarea {
   .me1hover:hover .shape1 {
     filter: grayscale(0%); /* No grayscale on hover */
   }
+  @media (hover: hover) {
+    .me1hover:hover .me {
+      filter: grayscale(0%); /* No grayscale on hover */
+    }}

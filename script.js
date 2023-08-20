@@ -148,3 +148,18 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // message
 
+document.addEventListener("DOMContentLoaded", function () {
+  const imageContainers = document.querySelectorAll(".me1hover");
+
+  imageContainers.forEach((container) => {
+    container.addEventListener("touchstart", function () {
+      const colorChange = this.querySelector(".me");
+      colorChange.style.filter = "grayscale(0%)";
+    });
+
+    container.addEventListener("touchend", function () {
+      const colorChange = this.querySelector(".me");
+      colorChange.style.filter = "grayscale(100%)";
+    });
+  });
+});
