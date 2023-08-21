@@ -180,22 +180,22 @@ background-position: center;
 
 .box1 {
     background-color: rgb(237, 17, 105);
-    animation: loader 5s infinite;
+    animation: loader 7s infinite;
 }
 
 .box2 {
     background-color: rgb(105, 231, 105);
-    animation: loader 3s infinite;
+    animation: loader 7s infinite;
 }
 
 .box3 {
     background-color: rgb(12, 69, 156);
-    animation: loader 5s infinite;
+    animation: loader 7s infinite;
 }
 
 .box4 {
     background-color: rgb(0, 0, 0);
-    animation: loader 5s infinite;
+    animation: loader 7s infinite;
 }
 
 @keyframes loader {
@@ -1130,3 +1130,49 @@ form textarea {
     .me1hover:hover .me {
       filter: grayscale(0%); /* No grayscale on hover */
     }}
+
+
+    @media (max-width: 991px) {
+.message-container {
+  position: fixed;
+  top: -50px;
+  left: 0;
+  right: 0;
+  z-index: 2;
+  background-color: #474747;
+  color: #fff;
+  padding: 10px;
+  text-align: center;
+  /* padding: 20px; */
+  
+    float: right;
+  animation: slideIn 0.5s ease-in-out 1s forwards, slideOut 0.5s ease-in-out 3s forwards;
+}
+
+@keyframes slideIn {
+  0% {
+    top: -50px;
+  }
+  100% {
+    top: 0;
+  }
+}
+
+@keyframes slideOut {
+  0%, 100% {
+    top: 0;
+  }
+  90% {
+    top: 0;
+  }
+  100% {
+    top: -50px;
+  }
+}
+    }
+
+.message-container {
+  display:table-column;
+}
+
+

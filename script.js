@@ -164,21 +164,49 @@ document.addEventListener("DOMContentLoaded", function() {
 //   });
 // });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const imageContainers = document.querySelectorAll(".me1hover");
+// document.addEventListener("DOMContentLoaded", function () {
+//   const imageContainers = document.querySelectorAll(".me1hover");
 
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      const colorChange = entry.target.querySelector(".me");
-      if (entry.isIntersecting) {
-        colorChange.style.filter = "grayscale(0%)";
-      } else {
-        colorChange.style.filter = "grayscale(100%)";
-      }
-    });
-  });
+//   const observer = new IntersectionObserver(entries => {
+//     entries.forEach(entry => {
+//       const colorChange = entry.target.querySelector(".me");
+//       if (entry.isIntersecting) {
+//         colorChange.style.filter = "grayscale(0%)";
+//       } else {
+//         colorChange.style.filter = "grayscale(100%)";
+//       }
+//     });
+//   });
 
-  imageContainers.forEach(container => {
-    observer.observe(container);
-  });
+//   imageContainers.forEach(container => {
+//     observer.observe(container);
+//   });
+// });
+document.addEventListener("DOMContentLoaded", function() {
+  const messageContainer = document.createElement("div");
+  messageContainer.classList.add("message-container");
+
+  const slideMessage = document.createElement("div");
+  slideMessage.classList.add("slide-message");
+  slideMessage.textContent = "Tap the image";
+  messageContainer.appendChild(slideMessage);
+
+  document.body.appendChild(messageContainer);
+
+  setTimeout(function() {
+    messageContainer.style.display = "block";
+    setTimeout(function() {
+      messageContainer.style.top = "-50px";
+      setTimeout(function() {
+        messageContainer.style.display = "none";
+      }, 500);
+    }, 500); 
+  }, 1000); // Slide in after 1 second
 });
+
+
+
+
+
+
+
