@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Weather App | Hari Naga Pandia Rajan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&family=Syne:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Outfit', sans-serif;
+      background: #0a0d16;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow-x: hidden;
+      position: relative;
+      color: #fff;
+    }
+
+    /* Animated gradient background */
+    .bg-gradient {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      transition: background 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      background: linear-gradient(135deg, #0a0d16 0%, #1a1040 30%, #0f2847 60%, #0a0d16 100%);
+    }
+    .bg-gradient.sunny {
+      background: linear-gradient(135deg, #0a0d16 0%, #2d1b4e 20%, #1a3a5c 45%, #0f4a3a 70%, #0a0d16 100%);
+    }
+    .bg-gradient.cloudy {
+      background: linear-gradient(135deg, #0a0d16 0%, #1a1a2e 25%, #2d2d44 50%, #1a1a2e 75%, #0a0d16 100%);
+    }
+    .bg-gradient.rainy {
+      background: linear-gradient(135deg, #0a0d16 0%, #0d1f3c 25%, #162a4a 50%, #0d1930 75%, #0a0d16 100%);
+    }
+    .bg-gradient.stormy {
+      background: linear-gradient(135deg, #0a0d16 0%, #1a0a2e 20%, #2a1040 45%, #150828 70%, #0a0d16 100%);
+    }
+
+    /* Floating orbs */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.3;
+      z-index: 0;
+      transition: all 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+      pointer-events: none;
+    }
+    .orb-1 {
+      width: 400px;
+      height: 400px;
+      top: -100px;
+      right: -100px;
+      background: #4a90d9;
+    }
+    .orb-2 {
+      width: 350px;
+      height: 350px;
+      bottom: -80px;
+      left: -80px;
+      background: #7b68ee;
+    }
+    .orb-3 {
+      width: 250px;
+      height: 250px;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: #00bcd4;
+      opacity: 0.15;
+    }
+    .bg-gradient.sunny ~ .app-wrapper .orb-1 { background: #f59e0b; }
+    .bg-gradient.sunny ~ .app-wrapper .orb-2 { background: #ef4444; opacity: 0.2; }
+    .bg-gradient.sunny ~ .app-wrapper .orb-3 { background: #f97316; }
+    .bg-gradient.cloudy ~ .app-wrapper .orb-1 { background: #64748b; }
+    .bg-gradient.cloudy ~ .app-wrapper .orb-2 { background: #475569; }
+    .bg-gradient.cloudy ~ .app-wrapper .orb-3 { background: #94a3b8; }
+    .bg-gradient.rainy ~ .app-wrapper .orb-1 { background: #3b82f6; }
+    .bg-gradient.rainy ~ .app-wrapper .orb-2 { background: #1d4ed8; }
+    .bg-gradient.rainy ~ .app-wrapper .orb-3 { background: #60a5fa; }
+    .bg-gradient.stormy ~ .app-wrapper .orb-1 { background: #7c3aed; }
+    .bg-gradient.stormy ~ .app-wrapper .orb-2 { background: #4c1d95; }
+    .bg-gradient.stormy ~ .app-wrapper .orb-3 { background: #a78bfa; }
+
+    .app-wrapper {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 420px;
+      padding: 20px;
+      margin: 20px auto;
+    }
+
+    /* Back link */
+    .back-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: rgba(255, 255, 255, 0.6);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 20px;
+      transition: color 0.3s;
+      letter-spacing: 0.5px;
+    }
+    .back-link:hover {
+      color: #fff;
+    }
+    .back-link i {
+      font-size: 0.75rem;
+    }
+
+    /* Glass card */
+    .glass-card {
+      background: rgba(255, 255, 255, 0.06);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 28px;
+      padding: 28px 24px;
+      box-shadow:
+        0 8px 32px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.05);
+    }
+
+    /* City Selector */
+    .city-selector-wrapper {
+      position: relative;
+      margin-bottom: 28px;
+    }
+    .city-selector {
+      width: 100%;
+      appearance: none;
+      -webkit-appearance: none;
+      background: rgba(255, 255, 255, 0.07);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 14px;
+      padding: 14px 48px 14px 18px;
+      color: #fff;
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      outline: none;
+      transition: all 0.3s;
+      letter-spacing: 0.5px;
+    }
+    .city-selector:hover,
+    .city-selector:focus {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+    .city-selector option {
+      background: #1a1a2e;
+      color: #fff;
+      padding: 12px;
+    }
+    .city-selector-wrapper::after {
+      content: '\f107';
+      font-family: 'Font Awesome 6 Free';
+      font-weight: 900;
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: rgba(255, 255, 255, 0.5);
+      pointer-events: none;
+      font-size: 0.9rem;
+    }
+
+    /* Location + Date */
+    .location-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 4px;
+    }
+    .location-row i {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 0.8rem;
+    }
+    .location-name {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.15rem;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+    .date-text {
+      color: rgba(255, 255, 255, 0.45);
+      font-size: 0.82rem;
+      margin-bottom: 24px;
+      font-weight: 400;
+    }
+
+    /* Main weather display */
+    .weather-main {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .temp-block {
+      display: flex;
+      flex-direction: column;
+    }
+    .temp-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 5.5rem;
+      font-weight: 800;
+      line-height: 1;
+      letter-spacing: -3px;
+      background: linear-gradient(180deg, #fff 30%, rgba(255,255,255,0.5) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      transition: opacity 0.4s;
+    }
+    .weather-label {
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 4px;
+      letter-spacing: 0.5px;
+    }
+    .weather-icon-main {
+      font-size: 4.5rem;
+      opacity: 0.9;
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      filter: drop-shadow(0 4px 20px rgba(255, 255, 255, 0.15));
+    }
+    .weather-icon-main.sun {
+      color: #fbbf24;
+      filter: drop-shadow(0 4px 24px rgba(251, 191, 36, 0.4));
+    }
+    .weather-icon-main.cloud {
+      color: #94a3b8;
+      filter: drop-shadow(0 4px 20px rgba(148, 163, 184, 0.3));
+    }
+    .weather-icon-main.rain {
+      color: #60a5fa;
+      filter: drop-shadow(0 4px 20px rgba(96, 165, 250, 0.4));
+    }
+    .weather-icon-main.storm {
+      color: #a78bfa;
+      filter: drop-shadow(0 4px 20px rgba(167, 139, 250, 0.4));
+    }
+
+    /* Divider */
+    .divider {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      margin: 20px 0;
+    }
+
+    /* Stats grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 4px;
+    }
+    .stat-card {
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.06);
+      border-radius: 16px;
+      padding: 16px;
+      transition: all 0.3s;
+    }
+    .stat-card:hover {
+      background: rgba(255, 255, 255, 0.07);
+      transform: translateY(-1px);
+    }
+    .stat-header {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+    }
+    .stat-header i {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.4);
+      width: 16px;
+      text-align: center;
+    }
+    .stat-label {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.4);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      font-weight: 500;
+    }
+    .stat-value {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.35rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+    .stat-sub {
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.35);
+      margin-top: 2px;
+    }
+
+    /* Hourly forecast strip */
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.5);
+      text-transform: uppercase;
+      letter-spacing: 1.5px;
+      margin: 24px 0 14px;
+    }
+    .hourly-strip {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scroll-behavior: smooth;
+      -webkit-overflow-scrolling: touch;
+    }
+    .hourly-strip::-webkit-scrollbar {
+      height: 4px;
+    }
+    .hourly-strip::-webkit-scrollbar-track {
+      background: rgba(255,255,255,0.03);
+      border-radius: 4px;
+    }
+    .hourly-strip::-webkit-scrollbar-thumb {
+      background: rgba(255,255,255,0.1);
+      border-radius: 4px;
+    }
+    .hourly-item {
+      flex: 0 0 auto;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 14px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 14px;
+      min-width: 68px;
+      transition: all 0.3s;
+    }
+    .hourly-item.now {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.15);
+    }
+    .hourly-time {
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.45);
+      font-weight: 500;
+      letter-spacing: 0.5px;
+    }
+    .hourly-item.now .hourly-time {
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .hourly-icon {
+      font-size: 1.15rem;
+      opacity: 0.8;
+    }
+    .hourly-temp {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+
+    /* 5-day forecast */
+    .forecast-list {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .forecast-row {
+      display: flex;
+      align-items: center;
+      padding: 12px 14px;
+      border-radius: 14px;
+      transition: background 0.3s;
+    }
+    .forecast-row:hover {
+      background: rgba(255, 255, 255, 0.04);
+    }
+    .forecast-day {
+      flex: 1;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(255, 255, 255, 0.8);
+    }
+    .forecast-icon {
+      flex: 0 0 40px;
+      text-align: center;
+      font-size: 1.1rem;
+      opacity: 0.8;
+    }
+    .forecast-temps {
+      flex: 0 0 90px;
+      display: flex;
+      align-items: center;
+      justify-content: flex-end;
+      gap: 6px;
+    }
+    .forecast-high {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+    }
+    .forecast-low {
+      font-family: 'Syne', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: rgba(255, 255, 255, 0.35);
+    }
+    .temp-bar-container {
+      flex: 1;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 4px;
+      margin: 0 12px;
+      position: relative;
+      overflow: hidden;
+      min-width: 60px;
+    }
+    .temp-bar {
+      position: absolute;
+      height: 100%;
+      border-radius: 4px;
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+    .temp-bar.sunny-bar { background: linear-gradient(90deg, #f59e0b, #ef4444); }
+    .temp-bar.cloudy-bar { background: linear-gradient(90deg, #64748b, #94a3b8); }
+    .temp-bar.rainy-bar { background: linear-gradient(90deg, #3b82f6, #60a5fa); }
+    .temp-bar.stormy-bar { background: linear-gradient(90deg, #7c3aed, #a78bfa); }
+
+    /* Footer */
+    .app-footer {
+      text-align: center;
+      margin-top: 20px;
+      padding: 12px;
+    }
+    .app-footer span {
+      font-size: 0.72rem;
+      color: rgba(255, 255, 255, 0.2);
+      letter-spacing: 1px;
+    }
+
+    /* Fade animation */
+    .fade-content {
+      transition: opacity 0.35s ease, transform 0.35s ease;
+    }
+    .fade-content.fading {
+      opacity: 0;
+      transform: translateY(8px);
+    }
+
+    /* Responsive */
+    @media (max-width: 480px) {
+      .app-wrapper {
+        padding: 12px;
+      }
+      .glass-card {
+        padding: 22px 18px;
+        border-radius: 22px;
+      }
+      .temp-value {
+        font-size: 4.5rem;
+      }
+      .weather-icon-main {
+        font-size: 3.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-gradient" id="bgGradient"></div>
+
+  <div class="app-wrapper">
+    <div class="orb orb-1"></div>
+    <div class="orb orb-2"></div>
+    <div class="orb orb-3"></div>
+
+    <a href="../index.html" class="back-link">
+      <i class="fa-solid fa-arrow-left"></i>
+      Back to Portfolio
+    </a>
+
+    <div class="glass-card">
+      <!-- City Selector -->
+      <div class="city-selector-wrapper">
+        <select class="city-selector" id="citySelect">
+          <option value="chennai">Chennai, India</option>
+          <option value="tokyo">Tokyo, Japan</option>
+          <option value="london">London, UK</option>
+          <option value="newyork">New York, USA</option>
+        </select>
+      </div>
+
+      <div class="fade-content" id="fadeContent">
+        <!-- Location + Date -->
+        <div class="location-row">
+          <i class="fa-solid fa-location-dot"></i>
+          <span class="location-name" id="locationName">Chennai, Tamil Nadu</span>
+        </div>
+        <div class="date-text" id="dateText">Saturday, March 29</div>
+
+        <!-- Main Weather -->
+        <div class="weather-main">
+          <div class="temp-block">
+            <div class="temp-value" id="tempValue">34&deg;</div>
+            <div class="weather-label" id="weatherLabel">Sunny &amp; Clear</div>
+          </div>
+          <i class="fa-solid fa-sun weather-icon-main sun" id="weatherIcon"></i>
+        </div>
+
+        <div class="divider"></div>
+
+        <!-- Stats -->
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-header">
+              <i class="fa-solid fa-temperature-half"></i>
+              <span class="stat-label">Feels Like</span>
+            </div>
+            <div class="stat-value" id="feelsLike">38&deg;</div>
+            <div class="stat-sub">Higher than actual</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <i class="fa-solid fa-droplet"></i>
+              <span class="stat-label">Humidity</span>
+            </div>
+            <div class="stat-value" id="humidity">62%</div>
+            <div class="stat-sub" id="humiditySub">Moderate</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <i class="fa-solid fa-wind"></i>
+              <span class="stat-label">Wind Speed</span>
+            </div>
+            <div class="stat-value" id="windSpeed">18 km/h</div>
+            <div class="stat-sub" id="windDir">SW Breeze</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-header">
+              <i class="fa-solid fa-sun"></i>
+              <span class="stat-label">UV Index</span>
+            </div>
+            <div class="stat-value" id="uvIndex">8</div>
+            <div class="stat-sub" id="uvLabel">Very High</div>
+          </div>
+        </div>
+
+        <!-- Hourly Forecast -->
+        <div class="section-title">Hourly Forecast</div>
+        <div class="hourly-strip" id="hourlyStrip"></div>
+
+        <!-- 5-Day Forecast -->
+        <div class="section-title">5-Day Forecast</div>
+        <div class="forecast-list" id="forecastList"></div>
+      </div>
+    </div>
+
+    <div class="app-footer">
+      <span>WEATHER DEMO &mdash; MOCK DATA</span>
+    </div>
+  </div>
+
+  <script>
+    const weatherData = {
+      chennai: {
+        location: 'Chennai, Tamil Nadu',
+        date: 'Saturday, March 29',
+        temp: 34,
+        feelsLike: 38,
+        label: 'Sunny & Clear',
+        icon: 'fa-sun',
+        iconClass: 'sun',
+        bgClass: 'sunny',
+        humidity: 62,
+        humiditySub: 'Moderate',
+        wind: '18 km/h',
+        windDir: 'SW Breeze',
+        uv: 8,
+        uvLabel: 'Very High',
+        hourly: [
+          { time: 'Now', icon: 'fa-sun', iconColor: '#fbbf24', temp: 34 },
+          { time: '1 PM', icon: 'fa-sun', iconColor: '#fbbf24', temp: 35 },
+          { time: '2 PM', icon: 'fa-sun', iconColor: '#fbbf24', temp: 36 },
+          { time: '3 PM', icon: 'fa-cloud-sun', iconColor: '#fbbf24', temp: 35 },
+          { time: '4 PM', icon: 'fa-cloud-sun', iconColor: '#f59e0b', temp: 33 },
+          { time: '5 PM', icon: 'fa-cloud-sun', iconColor: '#f59e0b', temp: 32 },
+          { time: '6 PM', icon: 'fa-cloud', iconColor: '#94a3b8', temp: 30 },
+          { time: '7 PM', icon: 'fa-moon', iconColor: '#94a3b8', temp: 29 },
+          { time: '8 PM', icon: 'fa-moon', iconColor: '#94a3b8', temp: 28 },
+        ],
+        forecast: [
+          { day: 'Sunday', icon: 'fa-sun', iconColor: '#fbbf24', high: 35, low: 27 },
+          { day: 'Monday', icon: 'fa-cloud-sun', iconColor: '#f59e0b', high: 34, low: 26 },
+          { day: 'Tuesday', icon: 'fa-cloud-rain', iconColor: '#60a5fa', high: 31, low: 25 },
+          { day: 'Wednesday', icon: 'fa-cloud-sun', iconColor: '#f59e0b', high: 33, low: 26 },
+          { day: 'Thursday', icon: 'fa-sun', iconColor: '#fbbf24', high: 36, low: 27 },
+        ],
+        barClass: 'sunny-bar'
+      },
+      tokyo: {
+        location: 'Tokyo, Kanto',
+        date: 'Saturday, March 29',
+        temp: 14,
+        feelsLike: 11,
+        label: 'Overcast Clouds',
+        icon: 'fa-cloud',
+        iconClass: 'cloud',
+        bgClass: 'cloudy',
+        humidity: 78,
+        humiditySub: 'High',
+        wind: '22 km/h',
+        windDir: 'NE Wind',
+        uv: 3,
+        uvLabel: 'Low',
+        hourly: [
+          { time: 'Now', icon: 'fa-cloud', iconColor: '#94a3b8', temp: 14 },
+          { time: '1 PM', icon: 'fa-cloud', iconColor: '#94a3b8', temp: 14 },
+          { time: '2 PM', icon: 'fa-cloud', iconColor: '#94a3b8', temp: 15 },
+          { time: '3 PM', icon: 'fa-cloud-sun', iconColor: '#f59e0b', temp: 15 },
+          { time: '4 PM', icon: 'fa-cloud', iconColor: '#94a3b8', temp: 14 },
+          { time: '5 PM', icon: 'fa-cloud', iconColor: '#94a3b8', temp: 13 },
+          { time: '6 PM', icon: 'fa-cloud', iconColor: '#64748b', temp: 12 },
+          { time: '7 PM', icon: 'fa-cloud-moon', iconColor: '#64748b', temp: 11 },
+          { time: '8 PM', icon: 'fa-cloud-moon', iconColor: '#64748b', temp: 10 },
+        ],
+        forecast: [
+          { day: 'Sunday', icon: 'fa-cloud-rain', iconColor: '#60a5fa', high: 13, low: 8 },
+          { day: 'Monday', icon: 'fa-cloud', iconColor: '#94a3b8', high: 15, low: 9 },
+          { day: 'Tuesday', icon: 'fa-cloud-sun', iconColor: '#f59e0b', high: 17, low: 10 },
+          { day: 'Wednesday', icon: 'fa-sun', iconColor: '#fbbf24', high: 19, low: 11 },
+          { day: 'Thursday', icon: 'fa-cloud-sun', iconColor: '#f59e0b', high: 16, low: 10 },
+        ],
+        barClass: 'cloudy-bar'
+      },
+      london: {
+        location: 'London, England',
+        date: 'Saturday, March 29',
+        temp: 9,
+        feelsLike: 5,
+        label: 'Light Rain',
+        icon: 'fa-cloud-rain',
+        iconClass: 'rain',
+        bgClass: 'rainy',
+        humidity: 88,
+        humiditySub: 'Very High',
+        wind: '28 km/h',
+        windDir: 'W Gusting',
+        uv: 2,
+        uvLabel: 'Low',
+        hourly: [
+          { time: 'Now', icon: 'fa-cloud-rain', iconColor: '#60a5fa', temp: 9 },
+          { time: '1 PM', icon: 'fa-cloud-rain', iconColor: '#60a5fa', temp: 9 },
+          { time: '2 PM', icon: 'fa-cloud-showers-heavy', iconColor: '#3b82f6', temp: 8 },
+          { time: '3 PM', icon: 'fa-cloud-showers-heavy', iconColor: '#3b82f6', temp: 8 },
+          { time: '4 PM', icon: 'fa-cloud-rain', iconColor: '#60a5fa', temp: 8 },
+          { time: '5 PM', icon: 'fa-cloud', iconColor: '#94a3b8', temp: 7 },
+          { time: '6 PM', icon: 'fa-cloud', iconColor: '#64748b', temp: 7 },
+          { time: '7 PM', icon: 'fa-cloud-moon-rain', iconColor: '#3b82f6', temp: 6 },
+          { time: '8 PM', icon: 'fa-cloud-moon', iconColor: '#64748b', temp: 6 },
+        ],
+        forecast: [
+          { day: 'Sunday', icon: 'fa-cloud-rain', iconColor: '#60a5fa', high: 10, low: 5 },
+          { day: 'Monday', icon: 'fa-cloud', iconColor: '#94a3b8', high: 11, low: 6 },
+          { day: 'Tuesday', icon: 'fa-cloud-sun', iconColor: '#f59e0b', high: 13, low: 7 },
+          { day: 'Wednesday', icon: 'fa-cloud-rain', iconColor: '#60a5fa', high: 9, low: 4 },
+          { day: 'Thursday', icon: 'fa-cloud', iconColor: '#94a3b8', high: 10, low: 5 },
+        ],
+        barClass: 'rainy-bar'
+      },
+      newyork: {
+        location: 'New York, NY',
+        date: 'Saturday, March 29',
+        temp: 6,
+        feelsLike: 1,
+        label: 'Thunderstorm',
+        icon: 'fa-cloud-bolt',
+        iconClass: 'storm',
+        bgClass: 'stormy',
+        humidity: 92,
+        humiditySub: 'Very High',
+        wind: '35 km/h',
+        windDir: 'NW Gale',
+        uv: 1,
+        uvLabel: 'Minimal',
+        hourly: [
+          { time: 'Now', icon: 'fa-cloud-bolt', iconColor: '#a78bfa', temp: 6 },
+          { time: '1 PM', icon: 'fa-cloud-bolt', iconColor: '#a78bfa', temp: 5 },
+          { time: '2 PM', icon: 'fa-cloud-showers-heavy', iconColor: '#7c3aed', temp: 5 },
+          { time: '3 PM', icon: 'fa-cloud-bolt', iconColor: '#a78bfa', temp: 4 },
+          { time: '4 PM', icon: 'fa-cloud-showers-heavy', iconColor: '#7c3aed', temp: 4 },
+          { time: '5 PM', icon: 'fa-cloud-rain', iconColor: '#60a5fa', temp: 5 },
+          { time: '6 PM', icon: 'fa-cloud', iconColor: '#94a3b8', temp: 5 },
+          { time: '7 PM', icon: 'fa-cloud-moon', iconColor: '#64748b', temp: 4 },
+          { time: '8 PM', icon: 'fa-moon', iconColor: '#94a3b8', temp: 3 },
+        ],
+        forecast: [
+          { day: 'Sunday', icon: 'fa-cloud-rain', iconColor: '#60a5fa', high: 7, low: 2 },
+          { day: 'Monday', icon: 'fa-cloud', iconColor: '#94a3b8', high: 9, low: 3 },
+          { day: 'Tuesday', icon: 'fa-cloud-sun', iconColor: '#f59e0b', high: 12, low: 5 },
+          { day: 'Wednesday', icon: 'fa-sun', iconColor: '#fbbf24', high: 14, low: 6 },
+          { day: 'Thursday', icon: 'fa-cloud-sun', iconColor: '#f59e0b', high: 11, low: 4 },
+        ],
+        barClass: 'stormy-bar'
+      }
+    };
+
+    const bgGradient = document.getElementById('bgGradient');
+    const fadeContent = document.getElementById('fadeContent');
+    const citySelect = document.getElementById('citySelect');
+
+    function getFeelsLikeSub(temp, feelsLike) {
+      if (feelsLike > temp) return 'Higher than actual';
+      if (feelsLike < temp) return 'Lower than actual';
+      return 'Same as actual';
+    }
+
+    function buildHourly(data) {
+      const strip = document.getElementById('hourlyStrip');
+      strip.innerHTML = data.hourly.map((h, i) => `
+        <div class="hourly-item${i === 0 ? ' now' : ''}">
+          <span class="hourly-time">${h.time}</span>
+          <i class="fa-solid ${h.icon} hourly-icon" style="color:${h.iconColor}"></i>
+          <span class="hourly-temp">${h.temp}&deg;</span>
+        </div>
+      `).join('');
+    }
+
+    function buildForecast(data) {
+      const list = document.getElementById('forecastList');
+      // Find global min/max for bar positioning
+      const allHighs = data.forecast.map(f => f.high);
+      const allLows = data.forecast.map(f => f.low);
+      const globalMin = Math.min(...allLows);
+      const globalMax = Math.max(...allHighs);
+      const range = globalMax - globalMin || 1;
+
+      list.innerHTML = data.forecast.map(f => {
+        const leftPct = ((f.low - globalMin) / range) * 100;
+        const widthPct = ((f.high - f.low) / range) * 100;
+        return `
+          <div class="forecast-row">
+            <span class="forecast-day">${f.day}</span>
+            <span class="forecast-icon"><i class="fa-solid ${f.icon}" style="color:${f.iconColor}"></i></span>
+            <span class="forecast-low">${f.low}&deg;</span>
+            <div class="temp-bar-container">
+              <div class="temp-bar ${data.barClass}" style="left:${leftPct}%;width:${widthPct}%"></div>
+            </div>
+            <span class="forecast-high">${f.high}&deg;</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function updateWeather(cityKey) {
+      const data = weatherData[cityKey];
+      if (!data) return;
+
+      // Fade out
+      fadeContent.classList.add('fading');
+
+      // Switch background
+      bgGradient.className = 'bg-gradient ' + data.bgClass;
+
+      setTimeout(() => {
+        document.getElementById('locationName').textContent = data.location;
+        document.getElementById('dateText').textContent = data.date;
+        document.getElementById('tempValue').innerHTML = data.temp + '&deg;';
+        document.getElementById('weatherLabel').textContent = data.label;
+
+        const icon = document.getElementById('weatherIcon');
+        icon.className = 'fa-solid ' + data.icon + ' weather-icon-main ' + data.iconClass;
+
+        document.getElementById('feelsLike').innerHTML = data.feelsLike + '&deg;';
+        document.querySelector('.stat-card:nth-child(1) .stat-sub').textContent = getFeelsLikeSub(data.temp, data.feelsLike);
+        document.getElementById('humidity').textContent = data.humidity + '%';
+        document.getElementById('humiditySub').textContent = data.humiditySub;
+        document.getElementById('windSpeed').textContent = data.wind;
+        document.getElementById('windDir').textContent = data.windDir;
+        document.getElementById('uvIndex').textContent = data.uv;
+        document.getElementById('uvLabel').textContent = data.uvLabel;
+
+        buildHourly(data);
+        buildForecast(data);
+
+        // Fade in
+        fadeContent.classList.remove('fading');
+      }, 350);
+    }
+
+    citySelect.addEventListener('change', (e) => {
+      updateWeather(e.target.value);
+    });
+
+    // Initial render (no fade for first load)
+    (function init() {
+      const data = weatherData['chennai'];
+      bgGradient.className = 'bg-gradient ' + data.bgClass;
+      document.getElementById('locationName').textContent = data.location;
+      document.getElementById('dateText').textContent = data.date;
+      document.getElementById('tempValue').innerHTML = data.temp + '&deg;';
+      document.getElementById('weatherLabel').textContent = data.label;
+      const icon = document.getElementById('weatherIcon');
+      icon.className = 'fa-solid ' + data.icon + ' weather-icon-main ' + data.iconClass;
+      document.getElementById('feelsLike').innerHTML = data.feelsLike + '&deg;';
+      document.getElementById('humidity').textContent = data.humidity + '%';
+      document.getElementById('humiditySub').textContent = data.humiditySub;
+      document.getElementById('windSpeed').textContent = data.wind;
+      document.getElementById('windDir').textContent = data.windDir;
+      document.getElementById('uvIndex').textContent = data.uv;
+      document.getElementById('uvLabel').textContent = data.uvLabel;
+      buildHourly(data);
+      buildForecast(data);
+    })();
+  </script>
+</body>
+</html>

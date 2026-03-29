@@ -1,363 +1,790 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Personle Portfolio Website</title>
-    <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-        integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="style.css">
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
-        <link rel="icon" type="image/x-icon" href="images/logo1.jpg">
-
-
-    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script type="text/javascript">
-        (function () {
-          var words = ["Ui / UX Design","Web Developer" ],
-          i = 0;
-          setInterval(function(){ $('#words').fadeOut(function(){
-              $(this).html(words[(i = (i + 1) % words.length)]).fadeIn();
-            }); }, 2000)
-        })();
-    
-      </script>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hari Naga Pandia Rajan — Full Stack Developer</title>
+  <meta name="description" content="Full Stack Developer with 4+ years building enterprise systems. Angular, NestJS, microservices &amp; security hardening.">
+  <meta name="theme-color" content="#06080e">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.16.0/devicon.min.css">
+  <script type="module" src="/src/main.ts"></script>
 </head>
-
-
 <body>
-  <div class="message-container">
-    <div class="slide-message"> Tap the image</div>
+
+<!-- ═══════════ LOADER ═══════════ -->
+<div id="loader" class="loader" aria-hidden="true">
+  <div class="loader__ring"></div>
+  <span class="loader__text">HARI<span class="accent">.</span>DEV</span>
+</div>
+
+<!-- ═══════════ PARTICLE CANVAS ═══════════ -->
+<canvas id="particles-canvas" aria-hidden="true"></canvas>
+
+<!-- ═══════════ CUSTOM CURSOR ═══════════ -->
+<div id="cursor" class="cursor" aria-hidden="true"></div>
+<div id="cursor-follower" class="cursor-follower" aria-hidden="true"></div>
+
+<!-- ═══════════ SCROLL PROGRESS ═══════════ -->
+<div id="progress-bar" class="progress-bar" aria-hidden="true"></div>
+
+<!-- ═══════════ NAVIGATION ═══════════ -->
+<nav id="navbar" class="nav" role="navigation" aria-label="Main navigation">
+  <div class="nav__logo">HARI<span class="accent">.</span>DEV</div>
+  <div class="nav__links" id="nav-links">
+    <a href="#home" class="nav__link nav__link--active">Home</a>
+    <a href="#about" class="nav__link">About</a>
+    <a href="#skills" class="nav__link">Skills</a>
+    <a href="#projects" class="nav__link">Projects</a>
+    <a href="#experience" class="nav__link">Experience</a>
+    <a href="#achievements" class="nav__link">Achievements</a>
+    <a href="#contact" class="nav__link">Contact</a>
   </div>
-        <header>
-            <p class="logo">Hari Naga Pandia Rajan .<span>D</span></p>
-         
-            <div class="bx bx-menu" id="menu-icon"></div>
-          
+  <div class="nav__actions">
+    <a href="./resume/Hari-Naga-Pandia-Rajan-Resume.pdf" target="_blank" class="nav__resume-btn"><i class="fas fa-file-alt"></i> Resume</a>
+    <button class="nav__hire-btn" data-scroll-to="contact">Hire Me</button>
+  </div>
+  <button class="hamburger" id="hamburger" aria-label="Toggle menu" aria-expanded="false">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
 
-            <ul class="navbar">
-                <li><a href="#home">Home</a></li>
-        <li><a href="#about">About</a></li>
-        <li><a href="#skills">Skills</a></li>
-        <li><a href="#services">Project</a></li>
-        <li><a href="#contact">Contact</a></li>
-                <div class="bx bx-moon" id="darkmode"></div>
+<!-- ═══════════ MOBILE MENU OVERLAY ═══════════ -->
+<div id="mobile-menu" class="mobile-menu" aria-hidden="true">
+  <a href="#home" class="mobile-menu__link">Home</a>
+  <a href="#about" class="mobile-menu__link">About</a>
+  <a href="#skills" class="mobile-menu__link">Skills</a>
+  <a href="#projects" class="mobile-menu__link">Projects</a>
+  <a href="#experience" class="mobile-menu__link">Experience</a>
+  <a href="#achievements" class="mobile-menu__link">Achievements</a>
+  <a href="#contact" class="mobile-menu__link">Contact</a>
+  <div class="mobile-menu__actions">
+    <a href="./resume/Hari-Naga-Pandia-Rajan-Resume.pdf" target="_blank" class="btn btn--outline"><i class="fas fa-file-alt"></i> Resume</a>
+    <button class="btn btn--primary" data-scroll-to="contact">Hire Me</button>
+  </div>
+</div>
+
+<!-- ═══════════ HERO ═══════════ -->
+<section id="home" class="hero">
+  <div class="hero__bg" aria-hidden="true">
+    <div class="hero__orb hero__orb--1"></div>
+    <div class="hero__orb hero__orb--2"></div>
+    <div class="hero__orb hero__orb--3"></div>
+  </div>
+
+  <div class="container hero__content">
+    <div class="hero__text">
+      <div class="hero__badge reveal reveal--up">
+        <span class="hero__badge-dot"></span>
+        Available for Opportunities
+      </div>
+      <h1 class="hero__name">
+        <span class="hero__name-ghost reveal reveal--up delay-1">Hari Naga</span>
+        <span class="hero__name-gradient reveal reveal--up delay-2">Pandia Rajan</span>
+      </h1>
+      <div class="hero__typing reveal reveal--up delay-2" id="typing-text" aria-live="polite"></div>
+      <p class="hero__desc reveal reveal--up delay-3">Full Stack Software Developer with <strong>4+ years</strong> building scalable web applications using <strong>.NET, NestJS, and Angular</strong>. Strong expertise in RESTful API design, database optimization, and real-time systems.</p>
+      <div class="hero__buttons reveal reveal--up delay-3">
+        <a href="#projects" class="btn btn--primary"><i class="fas fa-rocket"></i> View Projects</a>
+        <a href="./resume/Hari-Naga-Pandia-Rajan-Resume.pdf" target="_blank" class="btn btn--outline"><i class="fas fa-download"></i> Download Resume</a>
+        <a href="#contact" class="btn btn--ghost"><i class="fas fa-envelope"></i> Contact Me</a>
+      </div>
+      <div class="hero__social reveal reveal--up delay-4">
+        <a href="https://www.linkedin.com/in/harinagapandiarajan" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+        <a href="https://github.com/HariNagaPandiaRajan" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+        <a href="https://www.instagram.com/__07__hari__08__/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+        <a href="mailto:harinagapandiarajan@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+      </div>
+    </div>
+
+    <div class="hero__right reveal reveal--right delay-2">
+      <div class="face-container" id="face-container">
+        <img src="./images/profile.png" alt="Hari Naga Pandia Rajan" class="face-container__img" loading="eager">
+        <div class="face-container__light" aria-hidden="true"></div>
+        <div class="face-container__glow" aria-hidden="true"></div>
+      </div>
+      <div class="hero__stats">
+        <div class="hero__stat">
+          <span class="hero__stat-value"><span class="counter" data-target="4">0</span>+</span>
+          <span class="hero__stat-label">Years Exp</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-value"><span class="counter" data-target="10">0</span>+</span>
+          <span class="hero__stat-label">Projects</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-value">3&times;</span>
+          <span class="hero__stat-label">Query Boost</span>
+        </div>
+        <div class="hero__stat">
+          <span class="hero__stat-value">&times;2</span>
+          <span class="hero__stat-label">Star Awards</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero__scroll-cue" aria-hidden="true">
+    <span>Scroll</span>
+    <div class="hero__scroll-line"></div>
+  </div>
+</section>
+
+<!-- ═══════════ TECH MARQUEE ═══════════ -->
+<section class="marquee" aria-hidden="true">
+  <div class="marquee__track marquee__track--forward" id="marquee-1"></div>
+  <div class="marquee__track marquee__track--reverse" id="marquee-2"></div>
+</section>
+
+<!-- ═══════════ ABOUT ═══════════ -->
+<section id="about" class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag reveal reveal--up">01 &middot; About</span>
+      <h2 class="section-title reveal reveal--up delay-1">The developer behind the <em>code</em></h2>
+      <p class="section-desc reveal reveal--up delay-2">Building software that scales, securely.</p>
+    </div>
+    <div class="about-grid">
+      <div class="about-photo reveal reveal--left">
+        <div class="about-photo__frame">
+          <img src="./images/profile.png" alt="Hari Naga Pandia Rajan" loading="lazy">
+          <div class="about-photo__light" aria-hidden="true"></div>
+        </div>
+        <div class="about-photo__info">
+          <h4>Hari Naga Pandia Rajan</h4>
+          <span>Full Stack Developer &middot; Tamil Nadu</span>
+        </div>
+      </div>
+      <div class="about-content reveal reveal--right">
+        <div class="about-text">
+          <p>Full Stack Software Developer with <strong>4 years of experience</strong> building scalable web applications using <strong>.NET, NestJS, and Angular</strong>. Strong expertise in RESTful API design and database optimization using MySQL and PostgreSQL.</p>
+          <p>Experienced in using <strong>Redis, RabbitMQ, and Typesense</strong> for performance optimization, asynchronous messaging, and fast search. Delivered real-time notifications using <strong>WebSockets and SignalR</strong>. Resolved SAST &amp; DAST vulnerabilities including SQL injection, XSS, and API hardening.</p>
+        </div>
+        <div class="about-counters">
+          <div class="counter-card">
+            <span class="counter-card__value"><span class="counter" data-target="4">0</span>+</span>
+            <span class="counter-card__label">Years Experience</span>
+          </div>
+          <div class="counter-card counter-card--pink">
+            <span class="counter-card__value"><span class="counter" data-target="2">0</span></span>
+            <span class="counter-card__label">Star Awards</span>
+          </div>
+          <div class="counter-card counter-card--cyan">
+            <span class="counter-card__value"><span class="counter" data-target="10">0</span>+</span>
+            <span class="counter-card__label">Projects Built</span>
+          </div>
+        </div>
+        <div class="about-chips">
+          <span class="chip">Angular</span>
+          <span class="chip">.NET Web API</span>
+          <span class="chip">NestJS</span>
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">MySQL</span>
+          <span class="chip">Typesense</span>
+          <span class="chip">RabbitMQ</span>
+          <span class="chip">Redis</span>
+          <span class="chip">SignalR</span>
+          <span class="chip">WebSockets</span>
+          <span class="chip">Docker</span>
+          <span class="chip">Azure DevOps</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ SKILLS ═══════════ -->
+<section id="skills" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag reveal reveal--up">02 &middot; Skills</span>
+      <h2 class="section-title reveal reveal--up delay-1">Technical <em>arsenal</em></h2>
+      <p class="section-desc reveal reveal--up delay-2">Full-stack toolkit, 4+ years production.</p>
+    </div>
+    <div class="skills-grid" id="skills-grid">
+      <!-- Frontend -->
+      <div class="skill-card reveal reveal--scale" style="--card-accent: var(--accent)">
+        <div class="skill-card__header">
+          <div class="skill-card__icon" style="background: rgba(196,181,253,.08)"><i class="devicon-angular-plain"></i></div>
+          <div><div class="skill-card__title">Frontend</div><div class="skill-card__sub">UI &amp; Architecture</div></div>
+        </div>
+        <div class="skill-card__items">
+          <div class="skill-item"><i class="devicon-angular-plain"></i><span>Angular 15+</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 92%"></div></div></div>
+          <div class="skill-item"><i class="devicon-typescript-plain"></i><span>TypeScript</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 90%"></div></div></div>
+          <div class="skill-item"><i class="devicon-rxjs-plain"></i><span>RxJS / NgRx</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 85%"></div></div></div>
+          <div class="skill-item"><i class="devicon-html5-plain"></i><span>HTML5</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 95%"></div></div></div>
+          <div class="skill-item"><i class="devicon-css3-plain"></i><span>SCSS</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 88%"></div></div></div>
+          <div class="skill-item"><i class="devicon-javascript-plain"></i><span>JavaScript</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 92%"></div></div></div>
+        </div>
+      </div>
+      <!-- Backend -->
+      <div class="skill-card reveal reveal--scale delay-1" style="--card-accent: var(--cyan)">
+        <div class="skill-card__header">
+          <div class="skill-card__icon" style="background: rgba(125,211,252,.08)"><i class="devicon-nestjs-original"></i></div>
+          <div><div class="skill-card__title">Backend</div><div class="skill-card__sub">APIs &amp; Services</div></div>
+        </div>
+        <div class="skill-card__items">
+          <div class="skill-item"><i class="devicon-dotnetcore-plain"></i><span>.NET Web API</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 88%"></div></div></div>
+          <div class="skill-item"><i class="devicon-nestjs-original"></i><span>NestJS</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 90%"></div></div></div>
+          <div class="skill-item"><i class="devicon-nodejs-plain"></i><span>Node.js</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 85%"></div></div></div>
+          <div class="skill-item"><i class="fa-solid fa-plug"></i><span>RESTful APIs</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 92%"></div></div></div>
+          <div class="skill-item"><i class="fa-solid fa-bolt"></i><span>SignalR / WebSockets</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 85%"></div></div></div>
+          <div class="skill-item"><i class="fa-solid fa-cubes"></i><span>Microservices</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 85%"></div></div></div>
+        </div>
+      </div>
+      <!-- Data & Search -->
+      <div class="skill-card reveal reveal--scale delay-2" style="--card-accent: var(--pink)">
+        <div class="skill-card__header">
+          <div class="skill-card__icon" style="background: rgba(249,168,212,.08)"><i class="devicon-postgresql-plain"></i></div>
+          <div><div class="skill-card__title">Data &amp; Search</div><div class="skill-card__sub">Storage, Queues &amp; Search</div></div>
+        </div>
+        <div class="skill-card__items">
+          <div class="skill-item"><i class="devicon-postgresql-plain"></i><span>PostgreSQL</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 90%"></div></div></div>
+          <div class="skill-item"><i class="devicon-mysql-plain"></i><span>MySQL</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 88%"></div></div></div>
+          <div class="skill-item"><i class="devicon-redis-plain"></i><span>Redis</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 82%"></div></div></div>
+          <div class="skill-item"><i class="fa-solid fa-message"></i><span>RabbitMQ</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 82%"></div></div></div>
+          <div class="skill-item"><i class="fa-solid fa-magnifying-glass"></i><span>Typesense / OpenSearch</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 80%"></div></div></div>
+          <div class="skill-item"><i class="fa-solid fa-diagram-project"></i><span>TypeORM / LINQ</span><div class="skill-item__bar"><div class="skill-item__fill" style="--fill: 88%"></div></div></div>
+        </div>
+      </div>
+    </div>
+    <!-- Tools strip — secondary -->
+    <div class="tools-strip reveal reveal--up delay-3">
+      <span class="tools-strip__label">Also working with</span>
+      <div class="tools-strip__items">
+        <span class="tools-strip__chip"><i class="devicon-docker-plain"></i> Docker</span>
+        <span class="tools-strip__chip"><i class="devicon-azure-plain"></i> Azure</span>
+        <span class="tools-strip__chip"><i class="devicon-git-plain"></i> Git</span>
+        <span class="tools-strip__chip"><i class="devicon-jest-plain"></i> Jest</span>
+        <span class="tools-strip__chip"><i class="fa-solid fa-shield-halved"></i> SAST/DAST</span>
+        <span class="tools-strip__chip"><i class="fa-solid fa-arrows-spin"></i> CI/CD</span>
+        <span class="tools-strip__chip"><i class="fa-solid fa-file-code"></i> Swagger</span>
+        <span class="tools-strip__chip"><i class="fa-solid fa-paper-plane"></i> Postman</span>
+        <span class="tools-strip__chip"><i class="devicon-jira-plain"></i> Jira</span>
+        <span class="tools-strip__chip"><i class="devicon-github-original"></i> GitHub</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ PROJECTS ═══════════ -->
+<section id="projects" class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag reveal reveal--up">03 &middot; Work</span>
+      <h2 class="section-title reveal reveal--up delay-1">Featured <em>projects</em></h2>
+      <p class="section-desc reveal reveal--up delay-2">Enterprise systems built for scale and security.</p>
+    </div>
+    <div class="projects-toolbar reveal reveal--up delay-2">
+      <div class="filter-buttons" id="project-filter">
+        <button class="filter-btn filter-btn--active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+        <button class="filter-btn" data-filter="backend">Backend</button>
+        <button class="filter-btn" data-filter="security">Security</button>
+        <button class="filter-btn" data-filter="frontend">Frontend</button>
+      </div>
+      <div class="search-wrapper">
+        <i class="fas fa-search"></i>
+        <input type="text" id="project-search" class="search-input" placeholder="Search projects..." aria-label="Search projects">
+      </div>
+    </div>
+    <div class="projects-grid" id="project-grid">
+
+      <!-- Project 1: Benchmarking -->
+      <article class="project-card reveal reveal--up" data-category="fullstack" data-tags="angular .net mysql vehicle benchmarking plugin">
+        <div class="project-card__visual" style="--grad-from: rgba(196,181,253,.15); --grad-to: rgba(129,140,248,.05)">
+          <span class="project-card__emoji">&#x1F697;</span>
+          <div class="project-card__metrics">
+            <div class="project-card__metric"><strong>80%</strong><span>License Cut</span></div>
+            <div class="project-card__metric"><strong>Custom</strong><span>Plugin System</span></div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <h3 class="project-card__title">Benchmarking App</h3>
+          <p class="project-card__desc">Vehicle teardown analysis platform &mdash; cut licensing costs by 80% with a custom plugin architecture. Full-stack solution handling complex data workflows.</p>
+          <ul class="project-card__features">
+            <li>Custom plugin system replacing licensed tools</li>
+            <li>Vehicle teardown data processing</li>
+            <li>Role-based access control</li>
+            <li>Report generation engine</li>
+          </ul>
+          <div class="project-card__tags">
+            <span class="tag tag--accent">Angular</span>
+            <span class="tag tag--cyan">.NET</span>
+            <span class="tag tag--pink">MySQL</span>
+          </div>
+          <div class="project-card__links">
+            <a href="https://github.com/HariNagaPandiaRajan" target="_blank" rel="noopener" class="project-card__link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 2: Eureka -->
+      <article class="project-card reveal reveal--up delay-1" data-category="backend" data-tags="nestjs postgresql redis rabbitmq typesense websocket eureka vehicle intel search">
+        <div class="project-card__visual" style="--grad-from: rgba(125,211,252,.15); --grad-to: rgba(129,140,248,.05)">
+          <span class="project-card__emoji">&#x1F4CA;</span>
+          <div class="project-card__metrics">
+            <div class="project-card__metric"><strong>100k+</strong><span>Records</span></div>
+            <div class="project-card__metric"><strong>3&times;</strong><span>Query Boost</span></div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <h3 class="project-card__title">Eureka &mdash; Vehicle Intel</h3>
+          <p class="project-card__desc">High-performance vehicle intelligence platform handling 100k+ records with Typesense search, real-time WebSocket notifications, and event-driven architecture.</p>
+          <ul class="project-card__features">
+            <li>Typesense full-text search across 100k+ records</li>
+            <li>RabbitMQ event-driven microservices</li>
+            <li>Redis caching — 3&times; query performance boost</li>
+            <li>Real-time WebSocket notifications</li>
+          </ul>
+          <div class="project-card__tags">
+            <span class="tag tag--accent">NestJS</span>
+            <span class="tag tag--cyan">PostgreSQL</span>
+            <span class="tag tag--pink">Redis</span>
+            <span class="tag tag--gold">RabbitMQ</span>
+          </div>
+          <div class="project-card__links">
+            <a href="https://github.com/HariNagaPandiaRajan" target="_blank" rel="noopener" class="project-card__link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 3: Security -->
+      <article class="project-card reveal reveal--up delay-2" data-category="security" data-tags="security sast dast xss sql injection dependency audit hardening .net">
+        <div class="project-card__visual" style="--grad-from: rgba(249,168,212,.15); --grad-to: rgba(251,191,36,.05)">
+          <span class="project-card__emoji">&#x1F510;</span>
+          <div class="project-card__metrics">
+            <div class="project-card__metric"><strong>Zero</strong><span>Critical CVEs</span></div>
+            <div class="project-card__metric"><strong>OWASP</strong><span>Compliant</span></div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <h3 class="project-card__title">Security Hardening</h3>
+          <p class="project-card__desc">Enterprise-grade SAST/DAST security audit and remediation. Eliminated XSS, SQL injection, and dependency vulnerabilities across multiple applications.</p>
+          <ul class="project-card__features">
+            <li>SAST &amp; DAST vulnerability scanning</li>
+            <li>XSS &amp; SQL injection remediation</li>
+            <li>Dependency auditing &amp; upgrading</li>
+            <li>Security best practices documentation</li>
+          </ul>
+          <div class="project-card__tags">
+            <span class="tag tag--pink">Security</span>
+            <span class="tag tag--accent">SAST</span>
+            <span class="tag tag--cyan">.NET</span>
+          </div>
+          <div class="project-card__links">
+            <a href="https://github.com/HariNagaPandiaRajan" target="_blank" rel="noopener" class="project-card__link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 4: WebSocket Notifications -->
+      <article class="project-card reveal reveal--up" data-category="backend" data-tags="websocket nestjs real-time notifications angular socket">
+        <div class="project-card__visual" style="--grad-from: rgba(52,211,153,.15); --grad-to: rgba(125,211,252,.05)">
+          <span class="project-card__emoji">&#x1F514;</span>
+          <div class="project-card__metrics">
+            <div class="project-card__metric"><strong>Real-time</strong><span>Updates</span></div>
+            <div class="project-card__metric"><strong>&lt;50ms</strong><span>Latency</span></div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <h3 class="project-card__title">Real-time Notification System</h3>
+          <p class="project-card__desc">WebSocket-based notification engine delivering real-time updates to connected clients with graceful reconnection and message queuing.</p>
+          <ul class="project-card__features">
+            <li>WebSocket gateway with Socket.IO</li>
+            <li>Automatic reconnection handling</li>
+            <li>Message queue for offline clients</li>
+            <li>Angular integration with RxJS streams</li>
+          </ul>
+          <div class="project-card__tags">
+            <span class="tag tag--accent">NestJS</span>
+            <span class="tag tag--cyan">WebSocket</span>
+            <span class="tag tag--green">Angular</span>
+          </div>
+          <div class="project-card__links">
+            <a href="https://github.com/HariNagaPandiaRajan" target="_blank" rel="noopener" class="project-card__link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 5: Typesense Search -->
+      <article class="project-card reveal reveal--up delay-1" data-category="fullstack" data-tags="typesense search nestjs angular full-text indexing">
+        <div class="project-card__visual" style="--grad-from: rgba(251,191,36,.15); --grad-to: rgba(196,181,253,.05)">
+          <span class="project-card__emoji">&#x1F50D;</span>
+          <div class="project-card__metrics">
+            <div class="project-card__metric"><strong>100k+</strong><span>Indexed Docs</span></div>
+            <div class="project-card__metric"><strong>&lt;20ms</strong><span>Search Time</span></div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <h3 class="project-card__title">Typesense Search Engine</h3>
+          <p class="project-card__desc">Lightning-fast full-text search implementation across 100k+ vehicle records with typo-tolerance, faceted filtering, and real-time indexing.</p>
+          <ul class="project-card__features">
+            <li>Typesense integration with NestJS</li>
+            <li>Auto-complete with typo tolerance</li>
+            <li>Faceted search &amp; filtering</li>
+            <li>Real-time index synchronization</li>
+          </ul>
+          <div class="project-card__tags">
+            <span class="tag tag--gold">Typesense</span>
+            <span class="tag tag--accent">NestJS</span>
+            <span class="tag tag--cyan">Angular</span>
+          </div>
+          <div class="project-card__links">
+            <a href="https://github.com/HariNagaPandiaRajan" target="_blank" rel="noopener" class="project-card__link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 6: API Gateway -->
+      <article class="project-card reveal reveal--up delay-2" data-category="backend" data-tags="microservices api gateway nestjs rabbitmq docker architecture">
+        <div class="project-card__visual" style="--grad-from: rgba(129,140,248,.15); --grad-to: rgba(196,181,253,.05)">
+          <span class="project-card__emoji">&#x1F310;</span>
+          <div class="project-card__metrics">
+            <div class="project-card__metric"><strong>Micro</strong><span>services</span></div>
+            <div class="project-card__metric"><strong>Docker</strong><span>Containerized</span></div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <h3 class="project-card__title">Microservices API Gateway</h3>
+          <p class="project-card__desc">Event-driven microservices architecture with RabbitMQ messaging, Docker containerization, and centralized API gateway for service orchestration.</p>
+          <ul class="project-card__features">
+            <li>RabbitMQ message broker integration</li>
+            <li>Docker multi-service orchestration</li>
+            <li>JWT-based authentication gateway</li>
+            <li>Rate limiting &amp; request validation</li>
+          </ul>
+          <div class="project-card__tags">
+            <span class="tag tag--accent">NestJS</span>
+            <span class="tag tag--pink">RabbitMQ</span>
+            <span class="tag tag--cyan">Docker</span>
+          </div>
+          <div class="project-card__links">
+            <a href="https://github.com/HariNagaPandiaRajan" target="_blank" rel="noopener" class="project-card__link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 7: Analytics Dashboard -->
+      <article class="project-card reveal reveal--up" data-category="frontend" data-tags="dashboard analytics charts ui glassmorphism responsive dark theme css javascript html">
+        <div class="project-card__visual" style="--grad-from: rgba(129,140,248,.2); --grad-to: rgba(196,181,253,.05)">
+          <span class="project-card__emoji">&#x1F4C8;</span>
+          <div class="project-card__metrics">
+            <div class="project-card__metric"><strong>Charts</strong><span>CSS Only</span></div>
+            <div class="project-card__metric"><strong>Glass</strong><span>Design</span></div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <h3 class="project-card__title">Analytics Dashboard</h3>
+          <p class="project-card__desc">Dark-themed SaaS analytics dashboard with CSS bar charts, stat cards, recent orders table, and glassmorphism design. Fully responsive with sidebar navigation.</p>
+          <ul class="project-card__features">
+            <li>Pure CSS animated bar charts</li>
+            <li>Glassmorphism card components</li>
+            <li>Data table with status badges</li>
+            <li>Responsive sidebar + mobile drawer</li>
+          </ul>
+          <div class="project-card__tags">
+            <span class="tag tag--accent">HTML5</span>
+            <span class="tag tag--cyan">CSS3</span>
+            <span class="tag tag--gold">JavaScript</span>
+          </div>
+          <div class="project-card__links">
+            <a href="./demos/dashboard.html" class="project-card__link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+            <a href="https://github.com/HariNagaPandiaRajan" target="_blank" rel="noopener" class="project-card__link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 8: Weather App -->
+      <article class="project-card reveal reveal--up delay-1" data-category="frontend" data-tags="weather app ui mobile glassmorphism gradient css javascript responsive forecast">
+        <div class="project-card__visual" style="--grad-from: rgba(52,211,153,.15); --grad-to: rgba(125,211,252,.1)">
+          <span class="project-card__emoji">&#x26C5;</span>
+          <div class="project-card__metrics">
+            <div class="project-card__metric"><strong>4 Cities</strong><span>Interactive</span></div>
+            <div class="project-card__metric"><strong>Smooth</strong><span>Transitions</span></div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <h3 class="project-card__title">Weather App UI</h3>
+          <p class="project-card__desc">Premium weather app UI with city switching, dynamic gradient backgrounds, hourly/5-day forecasts, and glassmorphism card design. Smooth animated transitions.</p>
+          <ul class="project-card__features">
+            <li>Dynamic city selector with animated transitions</li>
+            <li>Gradient backgrounds shift with weather</li>
+            <li>Hourly + 5-day forecast display</li>
+            <li>Mobile-first glassmorphism layout</li>
+          </ul>
+          <div class="project-card__tags">
+            <span class="tag tag--accent">JavaScript</span>
+            <span class="tag tag--cyan">CSS3</span>
+            <span class="tag tag--pink">UI Design</span>
+          </div>
+          <div class="project-card__links">
+            <a href="./demos/weather.html" class="project-card__link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+            <a href="https://github.com/HariNagaPandiaRajan" target="_blank" rel="noopener" class="project-card__link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+
+      <!-- Project 9: Kanban Task Board -->
+      <article class="project-card reveal reveal--up delay-2" data-category="frontend" data-tags="kanban taskboard drag drop project management trello ui interactive javascript css">
+        <div class="project-card__visual" style="--grad-from: rgba(249,168,212,.15); --grad-to: rgba(129,140,248,.08)">
+          <span class="project-card__emoji">&#x1F4CB;</span>
+          <div class="project-card__metrics">
+            <div class="project-card__metric"><strong>Drag</strong><span>&amp; Drop</span></div>
+            <div class="project-card__metric"><strong>CRUD</strong><span>Tasks</span></div>
+          </div>
+        </div>
+        <div class="project-card__body">
+          <h3 class="project-card__title">Kanban Task Board</h3>
+          <p class="project-card__desc">Interactive project management board with drag-and-drop task cards, 4 columns (Backlog &rarr; Done), modal task creation, and filter chips. Built like Trello with dark theme.</p>
+          <ul class="project-card__features">
+            <li>HTML5 drag-and-drop between columns</li>
+            <li>Add tasks via modal form</li>
+            <li>Priority badges &amp; category tags</li>
+            <li>Filter by priority and category</li>
+          </ul>
+          <div class="project-card__tags">
+            <span class="tag tag--accent">JavaScript</span>
+            <span class="tag tag--cyan">HTML5 DnD</span>
+            <span class="tag tag--pink">CSS3</span>
+          </div>
+          <div class="project-card__links">
+            <a href="./demos/taskboard.html" class="project-card__link"><i class="fas fa-external-link-alt"></i> Live Demo</a>
+            <a href="https://github.com/HariNagaPandiaRajan" target="_blank" rel="noopener" class="project-card__link"><i class="fab fa-github"></i> Code</a>
+          </div>
+        </div>
+      </article>
+
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ EXPERIENCE ═══════════ -->
+<section id="experience" class="section">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag reveal reveal--up">04 &middot; Career</span>
+      <h2 class="section-title reveal reveal--up delay-1">Professional <em>journey</em></h2>
+      <p class="section-desc reveal reveal--up delay-2">Every position a stepping stone &mdash; deepening mastery and delivery.</p>
+    </div>
+    <div class="experience-grid">
+      <div class="experience-sidebar reveal reveal--left">
+        <div class="experience-quote">
+          <p>&ldquo;Promoted to <strong>Software Developer</strong> in under 2 years. <strong>Star of the Quarter &times;2</strong>.&rdquo;</p>
+        </div>
+        <div class="experience-highlight">
+          <div class="experience-highlight__icon"><i class="fas fa-trophy"></i></div>
+          <div>
+            <strong>Caresoft Global</strong>
+            <span>Oct 2021 &mdash; Present</span>
+          </div>
+        </div>
+      </div>
+      <div class="timeline reveal reveal--right">
+        <div class="timeline-item timeline-item--current">
+          <div class="timeline-dot"><i></i></div>
+          <div class="timeline-content">
+            <span class="timeline-date">Nov 2023 &mdash; Present</span>
+            <h4 class="timeline-role">Software Developer</h4>
+            <span class="timeline-company">Caresoft Global</span>
+            <ul class="timeline-list">
+              <li>Developed data-intensive applications using <strong>Angular, NestJS, and PostgreSQL</strong></li>
+              <li>Designed microservices with <strong>RabbitMQ</strong> and <strong>Redis</strong> caching</li>
+              <li>Implemented <strong>Typesense</strong> search and optimized TypeORM queries</li>
+              <li>Delivered real-time notifications using <strong>WebSockets and SignalR</strong></li>
+              <li>Resolved SAST &amp; DAST vulnerabilities: SQL injection, XSS, API hardening</li>
+              <li>Collaborated in Agile teams using <strong>Azure DevOps</strong></li>
             </ul>
-            
-        </header>
-        
-        <!-- <div class="message-container">
-          <div class="slide-message">Your message goes here!</div>
-        </div> -->
-          <section class="home" id="home">
-            <!-- <div class="hero"> -->
-            <!-- <div class="detel"> -->
-                <div class="social">
-                  <a href="https://www.linkedin.com/in/harinagapandiarajan"><i class='fa fa-linkedin box3'></i></a>
-                    <a href="https://github.com/HariNagaPandiaRajan"><i class='bx bxl-github box4'></i></a>
-                    <a href="https://www.instagram.com/__07__hari__08__/"><i class='bx bxl-instagram box1'></i></a>
-                    <a href="https://www.facebook.com/harinaga.pandiarajan"><i class='bx bxl-facebook box3'></i></a>
-                </div>
-                <div class="home-img images">
-                    <!-- <div class="images"> -->
-                      <div class="me1hover">
-                        <img src="images/pngwing.png" class="shape1">
-                        <img src="images/shape1.png" class="shape">
-                        <img src="images/20230129_093851.png"  class="me">
-                      </div>
-                 
-                </div>
-                <div class="home-text">
-                    <span>HI I AM</span><h1> HARI</h1>
-                <span id="words">Ui / UX Design</span>
-          
-                <form method="get" action="resume/Hari Naga Pandia Rajan.pdf">
-                    <button type="submit">Downdload CV</button>
-                 </form>
-                </div>
-        <!-- </div> -->
-        
-    <!-- </div> -->
-    </section>
-   
-    <section class="about" id="about">
-        <div class="heading">
-            <h2>About Me</h2>
-           
+            <div class="timeline-award"><i class="fas fa-star"></i> Star of the Quarter &times; 2</div>
+          </div>
         </div>
-    
-        <div class="about-container">
-            <div class="about-img" id="img">
-                <img src="images/IMG_20230129_194345_134.png" alt=""/>
-            </div>
-            <div class="about-text fade">
-                <p >Hello, there I am a Full Stack Developer & Designer having specialized skills in the area of UI/UX Design, 
-                    Front-End Development and  Back-End Development. Having great exposure to the world of design.
-                    I am having exceptional design skills, including typography, composition, layouts, color, and Concepts. 
-                    I can design and Develope Websites. 
-                    I have done my Undergraduate in B.E. Computer science.</p>
-                <!-- <div class="information">
-                    <div class="info-box">
-                        <i class='bx bxs-user'></i>
-                        <span>Name</span>
-                    </div>
-    
-                    <div class="info-box">
-                        <i class='bx bxs-phone'></i>
-                        <span>+1 444 444 4444</span>
-                    </div>
-    
-                    <div class="info-box">
-                        <i class='bx bxs-envelope'></i>
-                        <span>abc@gmail.com</span>
-                    </div>
-                </div> -->
-                <form method="get" action="resume/Hari Naga Pandia Rajan.pdf">
-                    <button class="btn" style="margin-top: 10%;" type="submit">View Resume</button>
-                 </form>
-            </div>
+        <div class="timeline-item">
+          <div class="timeline-dot"><i></i></div>
+          <div class="timeline-content">
+            <span class="timeline-date">Nov 2022 &mdash; Nov 2023</span>
+            <h4 class="timeline-role">Junior Developer</h4>
+            <span class="timeline-company">Caresoft Global</span>
+            <ul class="timeline-list">
+              <li>Built full-stack features using <strong>Angular</strong> and <strong>.NET Web API</strong></li>
+              <li>Fixed security issues reported by static and dynamic scans</li>
+              <li>Improved logging, validation, and error handling</li>
+            </ul>
+          </div>
         </div>
-    </section>
-    <!-- About Section End -->
-    
-    <!-- Skills Section Start -->
-    
-    <section class="skills" id="skills">
-        
-       <div class="heading">
-            <h2>Skills</h2>
-           
+        <div class="timeline-item">
+          <div class="timeline-dot"><i></i></div>
+          <div class="timeline-content">
+            <span class="timeline-date">Oct 2021 &mdash; Oct 2022</span>
+            <h4 class="timeline-role">Graduate Engineer</h4>
+            <span class="timeline-company">Caresoft Global</span>
+            <ul class="timeline-list">
+              <li>Assisted in resolving production bugs and implementing feature enhancements</li>
+              <li>Built foundation in <strong>MySQL, LINQ</strong>, and Agile methodology</li>
+            </ul>
+          </div>
         </div>
-    
-         <!-- <div class="skills-container">
-            <div class="bars">
-    
-                <div class="bars-box">
-                    <h3>HTML</h3>
-                    <span>94%</span>
-                    <div class="light-bar"></div>
-                    <div class="percent-bar html-bar"></div>
-                </div>
-    
-                <div class="bars-box">
-                    <h3>CSS</h3>
-                    <span>84%</span>
-                    <div class="light-bar"></div>
-                    <div class="percent-bar css-bar"></div>
-                </div>
-    
-                <div class="bars-box">
-                    <h3>JavaScript</h3>
-                    <span>74%</span>
-                    <div class="light-bar"></div>
-                    <div class="percent-bar js-bar"></div>
-                </div>
-    
-                <div class="bars-box">
-                    <h3>React</h3>
-                    <span>80%</span>
-                    <div class="light-bar"></div>
-                    <div class="percent-bar react-bar"></div>
-                </div>
-            </div>
-            <div class="skills-img"> -->
-                <!-- <section class="me1"></section> -->
-                <br>
-                <!-- <img src="images/My project.png" alt="Skill"> -->
-            <!-- </div>
-        </div> -->
-        <div class="percent1">
-            <!-- <div class="bars"> -->
-            <h3 style="display: contents;">HTML&nbsp;<img src="images/html-logo-48.png" style="height: 30px;width: 30px;">,CSS&nbsp;<img src="images/css-logo-100.png" style="height: 30px;width: 30px;">&nbsp;</h3>
-            <!-- <img src="images/html-logo-48.png" style="height: 30px;width: 30px;"><p>/</p><img src="images/css-logo-100.png" style="height: 30px;width: 30px;"> -->
-            <!-- <span>92%</span> -->
-    <div class="percent">
-        
-        <svg class="svg1">
-          <circle class="clrcle1" cx="70" cy="70" r="70"></circle>
-          <circle class="clrcle1" cx="70" cy="70" r="70"></circle>
-        </svg>
-        <div class="number">
-          <h2>92<span>%</span></h2>
-        </div>
-      </div>
-      <h3 style="display: contents;">javascript&nbsp;<img src="images/javascript-48.png" style="height: 30px;width: 30px;">&nbsp;</h3>
-      <!-- <img src="images/javascript-48.png" style="height: 30px;width: 30px;"> -->
-      <!-- <span>86%</span> -->
-      <div class="percent">
-        <svg class="svg2">
-          <circle class="clrcle2" cx="70" cy="70" r="70"></circle>
-          <circle class="clrcle2" cx="70" cy="70" r="70"></circle>
-        </svg>
-        <div class="number">
-          <h2>86<span>%</span></h2>
-        </div>
-      </div>
-      <h3 style="display: contents;">Angular&nbsp;<img src="images/angularjs-48.png" style="height: 30px;width: 30px;">&nbsp;</h3>
-      <!-- <span>90%</span> -->
-      <div class="percent">
-        <svg class="svg3">
-          <circle class="clrcle3" cx="70" cy="70" r="70"></circle>
-          <circle class="clrcle3" cx="70" cy="70" r="70"></circle>
-        </svg>
-        <div class="number">
-          <h2>90<span>%</span></h2>
-        </div>
-      </div>
-      <!-- <div class="percent">
-        <svg class="svg4">
-          <circle class="clrcle4" cx="70" cy="70" r="70"></circle>
-          <circle class="clrcle4" cx="70" cy="70" r="70"></circle>
-        </svg>
-        <div class="number">
-          <h2>94<span>%</span></h2>
-        </div>
-      </div>
-      <div class="percent">
-        <svg class="svg5">
-          <circle class="clrcle5" cx="70" cy="70" r="70"></circle>
-          <circle class="clrcle5" cx="70" cy="70" r="70"></circle>
-        </svg>
-        <div class="number">
-          <h2>94<span>%</span></h2>
-        </div>
-      </div> -->
-      <!-- </div> -->
-    </div>
-      <section >
-        <div class="percent1">
-            <h3 style="display: contents;">Typescript&nbsp;<img src="images/typescript-48.png" style="height: 30px;width: 30px;">&nbsp;</h3>
-            <!-- <span>80%</span> -->
-        <div class="percent">
-        <svg class="svg4">
-          <circle class="clrcle4" cx="70" cy="70" r="70"></circle>
-          <circle class="clrcle4" cx="70" cy="70" r="70"></circle>
-        </svg>
-        <div class="number">
-          <h2>80<span>%</span></h2>
-        </div>
-      </div>
-      <h3 style="display: contents;">MYSQL&nbsp;<img src="images/mysql-logo-48.png" style="height: 30px;width: 30px;">&nbsp;</h3>
-      <!-- <span>75%</span> -->
-      <div class="percent">
-        <svg class="svg5">
-          <circle class="clrcle5" cx="70" cy="70" r="70"></circle>
-          <circle class="clrcle5" cx="70" cy="70" r="70"></circle>
-        </svg>
-        <div class="number">
-          <h2>75<span>%</span></h2>
+        <div class="timeline-item">
+          <div class="timeline-dot"><i></i></div>
+          <div class="timeline-content">
+            <span class="timeline-date">Aug 2017 &mdash; Sep 2021</span>
+            <h4 class="timeline-role">B.E. Computer Science &amp; Engineering</h4>
+            <span class="timeline-company">SSM Institute of Engineering and Technology, Dindigul</span>
+          </div>
         </div>
       </div>
     </div>
-      </section>
-    </section>
-    
-    <!-- Skills Section End --> 
-    <!-- Services Section Start -->
-    <section class="services" id="services">
-        <div class="heading">
-            <h2>Project's</h2>
-           
-        </div>
-        <div class="services-content">
-    
-            <div class="services-box">
-              <a href="web.html"><i class='bx bx-code-alt'></i>
-                <h3 class="gfg2">Web Development</h3>
-                <a href="web.html">Learn More</a></a>
-            </div>
-    
-            <!-- <div class="services-box">
-                <i class='bx bx-server'></i>
-                <h3>Backend Development</h3>
-                <a href="#">Learn More</a>
-            </div> -->
-            <div class="services-box">
-              <a href="uiux.html"><i class='bx bx-brush'></i>
-                <!-- <h3 class="gfg1">UI/UX Design</h3> -->
-                <h3 class="gfg2">UI/UX Design</h3>
-                <a href="uiux.html">Learn More</a></a>
-            </div>
-    
-            <!-- <div class="services-box">
-                <i class='bx bxl-android'></i>
-                <h3>App Development</h3>
-                <a href="#">Learn More</a>
-            </div> -->
-        </div>
-    </section>
-    <!-- Services Section End -->
-    
-    <!-- Contact Section Start -->
-    <section class="contact" id="contact">
-        <div class="heading">
-            <h2>Contact</h2>
-           
-        </div>
-        <div class="contact-form">
-          <form id="fs-frm" name="simple-contact-form" accept-charset="utf-8" action="https://formspree.io/f/xbjvorlr" method="post">
-            <!-- <fieldset id="fs-frm-inputs"> -->
-              <!-- <label for="full-name">Full Name</label> -->
-              <input type="text" name="name" id="full-name" placeholder="Name" required="">
-              <!-- <label for="email-address">Email Address</label> -->
-              <input type="email" name="_replyto" id="email-address" placeholder="Email" required="">
-              <!-- <label for="message">Message</label> -->
-              <textarea rows="3" name="message" id="message" placeholder="please leave your queries hear " required=""></textarea>
-              <input type="hidden" name="_subject" id="email-subject" value="Contact Form Submission">
-            <!-- </fieldset> -->
-            <input type="submit" value="Submit">
-          </form>
-                                </div>
-                                </section>
-                                <!-- Contact Section End -->
-                             <div class="footer">
-                                    <h2>Follow Us</h2>
-                                    <div class="footer-social">
-                                        <a href="https://www.facebook.com/harinaga.pandiarajan"><i class='bx bxl-facebook'></i></a>
-                                        <a href="#"><i class='bx bxl-twitter'></i></a>
-                                        <a href="https://instagram.com/__07__hari__08__?utm_source=qr&igshid=MzNlNGNkZWQ4Mg%3D%3D"><i class='bx bxl-instagram'></i></a>
-                                        <a href="#"><i class='bx bxl-youtube'></i></a>
-                                    </div>
-                                    <!-- <div class="social1">
-                                        <div class="container">
-                                            <a href="#">
-                                                <div class="box1">
-                                                    <i class="fab fa-instagram"></i>
-                                                </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="box2">
-                                                    <i class="fab fa-dribbble"></i>
-                                               </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="box3">
-                                                <i class="fa fa-linkedin"></i>
-                                            </div>
-                                            </a>
-                                            <a href="#">
-                                                <div class="box4">
-                                                    <i class="fa fa-facebook-f"></i>
-                                                </div>
-                                            </a>
-                                        </div>
-                                    </div> -->
-                                </div>
-    
-                                <div class="copyright">
-                                    <!-- © PortFlix | All Right Reserved.</p> -->
-                                    
-                                </div>
-                                <!-- Javascript -->
-                              <script src="script.js"></script>
+  </div>
+</section>
 
+<!-- ═══════════ ACHIEVEMENTS ═══════════ -->
+<section id="achievements" class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag reveal reveal--up">05 &middot; Achievements</span>
+      <h2 class="section-title reveal reveal--up delay-1">Key <em>milestones</em></h2>
+    </div>
+    <div class="achievements-grid">
+      <div class="achievement-card reveal reveal--scale" style="--ach-color: var(--gold)">
+        <div class="achievement-card__icon"><i class="fas fa-trophy"></i></div>
+        <div class="achievement-card__value">&times;2</div>
+        <div class="achievement-card__label">Star of the Quarter</div>
+        <p class="achievement-card__desc">Recognized for outstanding delivery and impact at Caresoft Global.</p>
+      </div>
+      <div class="achievement-card reveal reveal--scale delay-1" style="--ach-color: var(--accent)">
+        <div class="achievement-card__icon"><i class="fas fa-bolt"></i></div>
+        <div class="achievement-card__value">3&times;</div>
+        <div class="achievement-card__label">Query Performance Boost</div>
+        <p class="achievement-card__desc">Optimized TypeORM queries with Redis caching and RabbitMQ patterns.</p>
+      </div>
+      <div class="achievement-card reveal reveal--scale delay-2" style="--ach-color: var(--green)">
+        <div class="achievement-card__icon"><i class="fas fa-shield-halved"></i></div>
+        <div class="achievement-card__value">Zero</div>
+        <div class="achievement-card__label">Critical CVEs</div>
+        <p class="achievement-card__desc">Full SAST/DAST remediation across enterprise applications.</p>
+      </div>
+      <div class="achievement-card reveal reveal--scale delay-3" style="--ach-color: var(--pink)">
+        <div class="achievement-card__icon"><i class="fas fa-percent"></i></div>
+        <div class="achievement-card__value">80%</div>
+        <div class="achievement-card__label">License Cost Reduction</div>
+        <p class="achievement-card__desc">Replaced licensed tools with custom-built plugin architecture.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ CONTACT ═══════════ -->
+<section id="contact" class="section section--alt">
+  <div class="container">
+    <div class="section-header">
+      <span class="section-tag reveal reveal--up">06 &middot; Contact</span>
+      <h2 class="section-title reveal reveal--up delay-1">Let's build <em>something great</em></h2>
+      <p class="section-desc reveal reveal--up delay-2">I respond within 24 hours.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info reveal reveal--left">
+        <div class="contact-item">
+          <div class="contact-item__icon"><i class="fas fa-envelope"></i></div>
+          <div class="contact-item__text">
+            <h5>Email</h5>
+            <a href="mailto:harinagapandiarajan@gmail.com">harinagapandiarajan@gmail.com</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item__icon"><i class="fas fa-phone"></i></div>
+          <div class="contact-item__text">
+            <h5>Phone</h5>
+            <a href="tel:+916369822170">+91 6369822170</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item__icon"><i class="fab fa-linkedin-in"></i></div>
+          <div class="contact-item__text">
+            <h5>LinkedIn</h5>
+            <a href="https://www.linkedin.com/in/harinagapandiarajan" target="_blank" rel="noopener">linkedin.com/in/harinagapandiarajan</a>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item__icon"><i class="fas fa-map-marker-alt"></i></div>
+          <div class="contact-item__text">
+            <h5>Location</h5>
+            <span>Dindigul, Tamil Nadu, India</span>
+          </div>
+        </div>
+        <div class="contact-socials">
+          <a href="https://www.linkedin.com/in/harinagapandiarajan" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+          <a href="https://github.com/HariNagaPandiaRajan" target="_blank" rel="noopener" aria-label="GitHub"><i class="fab fa-github"></i></a>
+          <a href="https://www.instagram.com/__07__hari__08__/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+          <a href="mailto:harinagapandiarajan@gmail.com" aria-label="Email"><i class="fas fa-envelope"></i></a>
+        </div>
+      </div>
+      <div class="contact-form-wrapper reveal reveal--right">
+        <div class="contact-form__title">Send a message</div>
+        <form id="contact-form" novalidate>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="form-name">Name *</label>
+              <input type="text" id="form-name" name="name" required placeholder="John Doe" class="form-input">
+              <span class="form-error" aria-live="polite"></span>
+            </div>
+            <div class="form-group">
+              <label for="form-email">Email *</label>
+              <input type="email" id="form-email" name="email" required placeholder="john@company.com" class="form-input">
+              <span class="form-error" aria-live="polite"></span>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label for="form-company">Company</label>
+              <input type="text" id="form-company" name="company" placeholder="Optional" class="form-input">
+            </div>
+            <div class="form-group">
+              <label for="form-type">Type</label>
+              <select id="form-type" name="type" class="form-select">
+                <option value="">Select</option>
+                <option value="fulltime">Full-time</option>
+                <option value="freelance">Freelance</option>
+                <option value="collab">Collaboration</option>
+                <option value="hello">Just saying hi</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="form-message">Message *</label>
+            <textarea id="form-message" name="message" required placeholder="Tell me about the role or project..." class="form-textarea" rows="4"></textarea>
+            <span class="form-error" aria-live="polite"></span>
+          </div>
+          <button type="submit" class="btn btn--primary btn--full" id="form-submit">
+            <span class="btn__text">Send Message</span>
+            <span class="btn__loading" aria-hidden="true"><i class="fas fa-spinner fa-spin"></i></span>
+            <span class="btn__success" aria-hidden="true"><i class="fas fa-check"></i> Sent!</span>
+            <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══════════ FOOTER ═══════════ -->
+<footer class="footer">
+  <div class="container footer__inner">
+    <div class="footer__logo">HARI<span class="accent">.</span>DEV</div>
+    <p class="footer__copy">&copy; 2025 Hari Naga Pandia Rajan. Built with passion.</p>
+    <div class="footer__links">
+      <a href="https://github.com/HariNagaPandiaRajan" target="_blank" rel="noopener">GitHub</a>
+      <a href="https://www.linkedin.com/in/harinagapandiarajan" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="mailto:harinagapandiarajan@gmail.com">Email</a>
+    </div>
+  </div>
+</footer>
+
+<!-- ═══════════ BACK TO TOP ═══════════ -->
+<button id="back-to-top" class="back-to-top" aria-label="Back to top">
+  <i class="fas fa-arrow-up"></i>
+</button>
 
 </body>
-
 </html>

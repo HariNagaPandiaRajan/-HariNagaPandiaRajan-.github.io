@@ -1,0 +1,19 @@
+button {
+    padding: 10px 20px;
+    background-color: #3498db;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin: 5px;
+  }
+
+  /* Hover effect */
+  button:hover {
+    background-color: #2980b9;
+  }
+
+  /* Additional style for the first button */
+  #buttonProject1 {
+    background-color: #e74c3c;
+  }
