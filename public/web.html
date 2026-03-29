@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Personal Portfolio Website</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" type="image/x-icon" href="images/logo1.jpg">
+    <link rel="stylesheet" href="web.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
+    integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
+    <link rel="icon" type="image/x-icon" href="images/logo1.jpg">
+
+
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans&display=swap" rel="stylesheet">
+<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+</head>
+<body style="display: block;">
+    <header>
+        <p class="logo">Hari Naga Pandia Rajan.<span>D</span></p>
+        <div class="bx bx-menu" id="menu-icon"></div>
+        <ul class="navbar">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="index.html">About</a></li>
+            <div class="bx bx-moon" id="darkmode"></div>
+        </ul>
+    </header>
+   
+    <button style="padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 5px;" id="buttonProject1">Calculator</button>
+    <button style="padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 5px;" id="buttonProject2">FORM</button>
+    <button style="padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 5px;" id="buttonProject3">Animation</button>
+    <button style="padding: 10px 20px; background-color: #3498db; color: white; border: none; border-radius: 4px; cursor: pointer; margin: 5px;" id="buttonProject4">Cloned</button>
+
+    <div id="projectContainer"></div>
+    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#buttonProject1').click(function() {
+                loadProject('project1.html');
+            });
+
+            $('#buttonProject2').click(function() {
+                loadProject('project2.html');
+            });
+
+            $('#buttonProject3').click(function() {
+                loadProject('project3.html');
+            });
+            $('#buttonProject4').click(function() {
+                loadProject('project4.html');
+            });
+        });
+
+        function loadProject(url) {
+            $('#projectContainer').load(url);
+        }
+        let darkmode = document.querySelector("#darkmode");
+
+darkmode.onclick = () => {
+  if (darkmode.classList.contains("bx-moon")) {
+    darkmode.classList.replace("bx-moon", "bx-sun");   
+    document.body.classList.add("active");
+  } else {
+    darkmode.classList.replace("bx-sun", "bx-moon");
+    document.body.classList.remove("active");
+  }
+};
+    </script>
+</body>
+</html>

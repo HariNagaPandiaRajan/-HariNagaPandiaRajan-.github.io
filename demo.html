@@ -1,0 +1,205 @@
+eureka-ai-backend/
+├── src/
+│   ├── modules/
+│   │   ├── auth/
+│   │   │   ├── auth.controller.ts
+│   │   │   ├── auth.service.ts
+│   │   │   ├── auth.module.ts
+│   │   │   ├── jwt.strategy.ts
+│   │   │   ├── dto/
+│   │   │   │   ├── login.dto.ts
+│   │   │   │   └── register.dto.ts
+│   │   │   └── guards/
+│   │   │       └── jwt.guard.ts
+│   │   │
+│   │   ├── users/
+│   │   │   ├── users.controller.ts
+│   │   │   ├── users.service.ts
+│   │   │   ├── users.module.ts
+│   │   │   ├── user.entity.ts
+│   │   │   ├── repository/
+│   │   │   │   └── users.repository.ts
+│   │   │   └── dto/
+│   │   │       ├── create-user.dto.ts
+│   │   │       └── update-user.dto.ts
+│   │   │
+│   │   ├── ai-assistant/
+│   │   │   ├── ai-assistant.controller.ts
+│   │   │   ├── ai-assistant.service.ts
+│   │   │   ├── ai-assistant.module.ts
+│   │   │   ├── ollama.service.ts
+│   │   │   ├── rag.service.ts
+│   │   │   ├── repository/
+│   │   │   │   ├── chat-message.repository.ts
+│   │   │   │   └── chat-session.repository.ts
+│   │   │   ├── dto/
+│   │   │   │   ├── chat-message.dto.ts
+│   │   │   │   ├── chat-response.dto.ts
+│   │   │   │   └── location.dto.ts
+│   │   │   └── entities/
+│   │   │       ├── chat-session.entity.ts
+│   │   │       └── chat-message.entity.ts
+│   │   │
+│   │   ├── ideas/
+│   │   │   ├── ideas.controller.ts
+│   │   │   ├── ideas.service.ts
+│   │   │   ├── ideas.module.ts
+│   │   │   ├── idea.entity.ts
+│   │   │   ├── repository/
+│   │   │   │   └── ideas.repository.ts
+│   │   │   └── dto/
+│   │   │       ├── create-idea.dto.ts
+│   │   │       └── idea-filter.dto.ts
+│   │   │
+│   │   ├── observations/
+│   │   │   ├── observations.controller.ts
+│   │   │   ├── observations.service.ts
+│   │   │   ├── observations.module.ts
+│   │   │   └── observation.entity.ts
+│   │   │
+│   │   ├── locations/
+│   │   │   ├── locations.controller.ts
+│   │   │   ├── locations.service.ts
+│   │   │   ├── locations.module.ts
+│   │   │   ├── location.entity.ts
+│   │   │   └── dto/
+│   │   │       ├── create-location.dto.ts
+│   │   │       └── nearby-locations.dto.ts
+│   │   │
+│   │   └── dashboard/
+│   │       ├── dashboard.controller.ts
+│   │       ├── dashboard.service.ts
+│   │       └── dashboard.module.ts
+│   │
+│   ├── common/
+│   │   ├── filters/
+│   │   │   └── http-exception.filter.ts
+│   │   ├── interceptors/
+│   │   │   ├── logging.interceptor.ts
+│   │   │   └── response.interceptor.ts
+│   │   ├── guards/
+│   │   │   ├── jwt.guard.ts
+│   │   │   └── roles.guard.ts
+│   │   ├── decorators/
+│   │   │   ├── roles.decorator.ts
+│   │   │   ├── current-user.decorator.ts
+│   │   │   └── public.decorator.ts
+│   │   └── config/
+│   │       └── database.config.ts
+│   │
+│   ├── database/
+│   │   ├── migrations/
+│   │   ├── seeders/
+│   │   │   └── seed.ts
+│   │   └── schema.sql
+│   │
+│   ├── config/
+│   │   ├── app.config.ts
+│   │   ├── db.config.ts
+│   │   ├── ollama.config.ts
+│   │   └── jwt.config.ts
+│   │
+│   ├── app.module.ts
+│   ├── app.controller.ts
+│   ├── app.service.ts
+│   └── main.ts
+│
+├── .env
+├── .env.example
+├── docker-compose.yml
+├── Dockerfile
+├── package.json
+└── tsconfig.json
+
+
+
+
+ebugger attached.
+✔ Console Ninja extension is connected to Nest.js, see https://tinyurl.com/2vt8jxzw
+
+ Info  Webpack is building your sources...
+
+Debugger attached.
+Debugger attached.
+webpack 5.90.1 compiled successfully in 45746 ms
+Type-checking in progress...
+Debugger attached.
+ERROR in ./apps/eureka-viewer/api/src/chat/chat.module.ts:7:10
+TS2305: Module '"@iceberg/core/dtos/chat-group.entity"' has no exported member 'ChatGroup'.
+     5 | import { ChatController } from './chat.controller';
+     6 | import { ChatRepository } from 'libs/viewer/domain/repositories/chat.repository';       
+  >  7 | import { ChatGroup } from '@iceberg/core/dtos/chat-group.entity';
+       |          ^^^^^^^^^
+     8 | import { ChatMessage } from '@iceberg/core/dtos/chat-message.entity';
+     9 | import { ChatGroupMember } from '@iceberg/core/dtos/chat-group-member.entity';
+    10 | import { ChatAttachment } from '@iceberg/core/dtos/chat-attachment.entity';
+
+ERROR in ./apps/eureka-viewer/api/src/chat/chat.module.ts:8:10
+TS2305: Module '"@iceberg/core/dtos/chat-message.entity"' has no exported member 'ChatMessage'.  
+     6 | import { ChatRepository } from 'libs/viewer/domain/repositories/chat.repository';       
+     7 | import { ChatGroup } from '@iceberg/core/dtos/chat-group.entity';
+  >  8 | import { ChatMessage } from '@iceberg/core/dtos/chat-message.entity';
+       |          ^^^^^^^^^^^
+     9 | import { ChatGroupMember } from '@iceberg/core/dtos/chat-group-member.entity';
+    10 | import { ChatAttachment } from '@iceberg/core/dtos/chat-attachment.entity';
+    11 |
+
+ERROR in ./libs/core/src/dtos/chat-attachment.entity.ts:2:10
+TS2305: Module '"./chat-message.entity"' has no exported member 'ChatMessage'.
+    1 | import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+  > 2 | import { ChatMessage } from './chat-message.entity';
+      |          ^^^^^^^^^^^
+    3 |
+    4 | @Entity('chat_attachments')
+    5 | export class ChatAttachment {
+
+ERROR in ./libs/core/src/dtos/chat-attachment.entity.ts:12:40
+TS2339: Property 'attachments' does not exist on type 'unknown'.
+    10 |   messageId: string;
+    11 |
+  > 12 |   @ManyToOne(() => ChatMessage, m => m.attachments, { onDelete: 'CASCADE' })
+       |                                        ^^^^^^^^^^^
+    13 |   message: ChatMessage;
+    14 |
+    15 |   @Column({ type: 'varchar', length: 500 })
+
+ERROR in ./libs/core/src/dtos/chat-group-member.entity.ts:2:10
+TS2305: Module '"./chat-group.entity"' has no exported member 'ChatGroup'.
+    1 | import { Column, CreateDateColumn, Entity, Index, ManyToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
+  > 2 | import { ChatGroup } from './chat-group.entity';
+      |          ^^^^^^^^^
+    3 |
+    4 | @Entity('chat_group_members')
+    5 | @Unique(['chatGroupId', 'userId'])
+
+ERROR in ./libs/core/src/dtos/chat-group-member.entity.ts:14:38
+TS2339: Property 'members' does not exist on type 'unknown'.
+    12 |   chatGroupId: string;
+    13 |
+  > 14 |   @ManyToOne(() => ChatGroup, g => g.members, { onDelete: 'CASCADE' })
+       |                                      ^^^^^^^
+    15 |   chatGroup: ChatGroup;
+    16 |
+    17 |   @Column({ type: 'uuid' })
+
+ERROR in ./libs/viewer/domain/repositories/chat.repository.ts:3:10
+TS2305: Module '"@iceberg/core/dtos/chat-group.entity"' has no exported member 'ChatGroup'.      
+    1 | import { Injectable } from '@nestjs/common';
+    2 | import { DataSource, Repository } from 'typeorm';
+  > 3 | import { ChatGroup } from '@iceberg/core/dtos/chat-group.entity';
+      |          ^^^^^^^^^
+    4 | import { ChatMessage } from '@iceberg/core/dtos/chat-message.entity';
+    5 | import { ChatGroupMember } from '@iceberg/core/dtos/chat-group-member.entity';
+    6 |
+
+ERROR in ./libs/viewer/domain/repositories/chat.repository.ts:4:10
+TS2305: Module '"@iceberg/core/dtos/chat-message.entity"' has no exported member 'ChatMessage'.
+    2 | import { DataSource, Repository } from 'typeorm';
+    3 | import { ChatGroup } from '@iceberg/core/dtos/chat-group.entity';
+  > 4 | import { ChatMessage } from '@iceberg/core/dtos/chat-message.entity';
+      |          ^^^^^^^^^^^
+    5 | import { ChatGroupMember } from '@iceberg/core/dtos/chat-group-member.entity';
+    6 |
+    7 | @Injectable()
+
+Found 8 errors in 87846 ms.

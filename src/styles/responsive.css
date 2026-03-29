@@ -1,0 +1,104 @@
+/* ═══ RESPONSIVE BREAKPOINTS ═══ */
+
+/* Laptop ≤ 1200px */
+@media (max-width: 1200px) {
+  .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .projects-grid { grid-template-columns: repeat(2, 1fr); }
+  .achievements-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Tablet ≤ 992px */
+@media (max-width: 992px) {
+  :root { --section-pad: 80px; }
+
+  .hero__content { flex-direction: column; text-align: center; }
+  .hero__text { align-items: center; }
+  .hero__buttons { justify-content: center; }
+  .hero__social { justify-content: center; }
+  .hero__right { margin-top: 40px; }
+  .hero__stats { justify-content: center; }
+
+  .about-grid { grid-template-columns: 1fr; }
+  .about-photo { max-width: 350px; margin: 0 auto; }
+  .about-counters { justify-content: center; }
+
+  .experience-grid { grid-template-columns: 1fr; }
+  .experience-sidebar { position: static; }
+
+  .contact-grid { grid-template-columns: 1fr; }
+
+  .achievements-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* Phone landscape ≤ 768px */
+@media (max-width: 768px) {
+  :root { --section-pad: 64px; }
+
+  .nav__links { display: none; }
+  .nav__actions { display: none; }
+  .hamburger { display: flex; }
+
+  .skills-grid { grid-template-columns: 1fr; }
+  .projects-grid { grid-template-columns: 1fr; }
+  .projects-toolbar { flex-direction: column; gap: 12px; }
+  .filter-buttons { flex-wrap: wrap; }
+
+  .hero__name-ghost,
+  .hero__name-gradient {
+    font-size: clamp(2.4rem, 10vw, 4.5rem);
+  }
+
+  .face-container {
+    width: 200px;
+    height: 200px;
+  }
+
+  .hero__stats { flex-wrap: wrap; gap: 8px; }
+  .hero__stat { min-width: 70px; padding: 10px 14px; }
+
+  .testimonial-card { min-width: 85vw; }
+}
+
+/* Phone portrait ≤ 576px */
+@media (max-width: 576px) {
+  :root { --section-pad: 52px; }
+
+  .nav {
+    top: 8px;
+    padding: 5px 5px 5px 14px;
+  }
+
+  .face-container {
+    width: 170px;
+    height: 170px;
+  }
+
+  .hero__desc { font-size: 13px; }
+
+  .about-counters { grid-template-columns: 1fr; }
+  .achievements-grid { grid-template-columns: 1fr; }
+
+  .form-row { grid-template-columns: 1fr; }
+
+  .footer__inner {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero__buttons { flex-direction: column; align-items: stretch; }
+  .hero__buttons .btn { justify-content: center; }
+
+  .section-title {
+    font-size: clamp(1.6rem, 6vw, 2.2rem);
+  }
+
+  .project-card__features { display: none; }
+}
+
+/* Touch devices: disable custom cursor */
+@media (hover: none) {
+  .cursor,
+  .cursor-follower {
+    display: none !important;
+  }
+}
